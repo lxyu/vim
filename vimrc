@@ -460,9 +460,9 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 " => Languages
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Indent Fixes
-    autocmd FileType css,less,javascript,php set shiftwidth=2
-    autocmd FileType css,less,javascript,php set tabstop=2
-    autocmd FileType css,less,javascript,php set softtabstop=2
+    autocmd FileType css,less,javascript,php,puppet set shiftwidth=2
+    autocmd FileType css,less,javascript,php,puppet set tabstop=2
+    autocmd FileType css,less,javascript,php,puppet set softtabstop=2
 
 " Less
     autocmd BufRead,BufNewFile *.less set filetype=less
