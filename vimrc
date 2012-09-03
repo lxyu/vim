@@ -11,32 +11,30 @@ call vundle#rc()
 Bundle "gmarik/vundle"
 
 " Enable plugins
-" Misc
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Townk/vim-autoclose'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'fholgado/minibufexpl.vim'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'garbas/vim-snipmate'
+Bundle 'godlygeek/tabular'
+Bundle 'groenewege/vim-less'
 Bundle 'honza/snipmate-snippets'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'kien/ctrlp.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'mileszs/ack.vim'
+Bundle 'rodjek/vim-puppet'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'tomtom/tlib_vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/Puppet-Syntax-Highlighting'
-Bundle 'vim-scripts/sessionman.vim'
-
-Bundle 'fholgado/minibufexpl.vim'
-Bundle 'groenewege/vim-less'
 Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-surround'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
