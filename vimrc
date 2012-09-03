@@ -78,7 +78,10 @@ set cc=80
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim UI
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-color solarized                    " load a colorscheme
+if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
+    color solarized                    " load a colorscheme
+endif
+
 if has('gui_running')
     set guifont=Monaco:h12         " set gui font
     set guioptions-=T              " remove the toolbar
