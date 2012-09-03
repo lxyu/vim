@@ -30,7 +30,6 @@ Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/Puppet-Syntax-Highlighting'
 Bundle 'vim-scripts/sessionman.vim'
 
-"Bundle 'klen/python-mode'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'groenewege/vim-less'
 Bundle 'tpope/vim-rails'
