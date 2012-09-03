@@ -7,7 +7,6 @@ call vundle#rc()
 Bundle "gmarik/vundle"
 
 " Enable plugins
-
 " Misc
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'MarcWeber/vim-addon-mw-utils'
@@ -40,7 +39,6 @@ Bundle 'tpope/vim-rails'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Environment
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Basics
 set nocompatible         " must be first line
 set background=dark     " Assume a dark background
@@ -60,7 +58,7 @@ set history=1000                                " Store a ton of history (defaul
 
 " Setting up the directories
 set noswapfile
-set backup                        " backups are nice ...
+set backup                         " backups are nice ...
 set backupdir=~/.vim/backup
 set undofile                       " Persistent undo
 set undodir=~/.vim/undo
@@ -74,25 +72,21 @@ autocmd! bufwritepost ~/.vimrc source ~/.vimrc
 let g:clipbrdDefaultReg='+'
 
 " Highlight 81 column
-set cc=81
+set cc=80
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim UI
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+color solarized                    " load a colorscheme
 if has('gui_running')
-    color wombat
-    set guifont=Monaco:h12             " set gui font
+    set guifont=Monaco:h12         " set gui font
     set guioptions-=T              " remove the toolbar
     set lines=40                   " 40 lines of text instead of 24,
-    if has('gui_macvim')
-        set transparency=5          " Make the window slightly transparent
-    endif"
 else
-    color solarized               " load a colorscheme
-    set term=builtin_xterm        " Make terminal stuff works
-    let g:solarized_termtrans=1
+    set term=builtin_xterm         " Make terminal stuff works
     let g:solarized_termcolors=256
+    let g:solarized_termtrans=1
     set t_Co=256
 endif
 
@@ -100,8 +94,6 @@ set tabpagemax=15             " only show 15 tabs
 set showmode                  " display the current mode
 
 set cursorline                " highlight current line
-hi cursorline guibg=#333333   " highlight bg color of current line
-hi CursorColumn guibg=#333333 " highlight cursor
 
 if has('cmdline_info')
     set ruler                      " show the ruler
@@ -109,18 +101,7 @@ if has('cmdline_info')
     set showcmd                    " show partial commands in status line and selected characters/lines in visual mode
 endif
 
-if has('statusline')
-    set laststatus=2
-
-    " Broken down into easily includeable segments
-    set statusline=\ %{HasPaste()}           " Paste Mode
-    set statusline+=%<%f\                    " Filename
-    set statusline+=%w%h%m%r                 " Options
-    set statusline+=\ [%{&ff}/%Y]            " filetype
-    set statusline+=\ [%{getcwd()}]          " current dir
-    set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-endif
-
+set laststatus=2
 set backspace=indent,eol,start " Backspace for dummys
 set linespace=0                " No extra spaces between rows
 set nu                         " Line numbers on
@@ -140,7 +121,6 @@ set gdefault                   " The /g flag on :s substitutions by default
 set hid                        " Change buffer - without saving
 set magic                      " Set magic on, for regular expressions
 set autoread                   " Auto reload file on change
-
 set list
 set listchars=tab:>\ ,trail:\ ,extends:#,nbsp:\  " Highlight problematic whitespace
 
@@ -217,17 +197,6 @@ map <left> :bp!<cr>
 
 map <C-right> :tabnext<cr>
 map <C-left> :tabprevious<cr>
-
-"nmap <S-Up> <PageUp>
-"nmap <S-Down> <PageDown>
-
-" Tab configuration
-"map <leader>tt :tabnew<cr>
-"map <leader>tn :tabnext<cr>
-"map <leader>tp :tabprevious<cr>
-"map <leader>te :tabedit
-"map <leader>tc :tabclose<cr>
-"map <leader>tm :tabmove
 
 " When pressing <leader>cd switch to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>
@@ -337,7 +306,7 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     "let g:snippets_dir="~/.vim/bundle/snipmate-snippets/"
 
 " NerdTree
-    map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+    map <C-n> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
     map <leader>e :NERDTreeFind<CR>
     nmap <leader>nt :NERDTreeFind<CR>
 
@@ -396,17 +365,15 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 
 " Ctrlp
     let g:ctrlp_working_path_mode = 'rc'
-    "nnoremap <silent> <D-t> :CtrlP<CR>
-    "nnoremap <silent> <D-r> :CtrlPMRU<CR>
     nnoremap <C-o> :CtrlPBuffer<CR>
     nnoremap <C-m> :CtrlPMRU<CR>
-    nnoremap <C-l> :CtrlPClearCache<CR>
+    nnoremap <C-e> :CtrlPClearCache<CR>
     let g:ctrlp_custom_ignore = {
         \ 'dir':  '\.git$\|\.hg$\|\.svn$\|build$',
         \ 'file': '\.exe$\|\.so$\|\.dll$\|\.DS_Store$\|\.pyc$' }
 
 " Tagbar
-    nnoremap <silent> <leader>tt :TagbarToggle<CR>
+    nnoremap <silent> <leader>t :TagbarToggle<CR>
 
 " Fugitive
     nnoremap <silent> <leader>gs :Gstatus<CR>
@@ -476,19 +443,12 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:syntastic_check_on_open=1
     let g:syntastic_auto_jump=1
 
+" Powerline
+    let g:Powerline_symbols = 'fancy'
+
 " Nginx
     autocmd BufRead,BufNewFile /etc/nginx/* set filetype=nginx
     autocmd BufRead,BufNewFile /usr/local/etc/nginx/* set filetype=nginx
-
-" Minibuffer
-    "let g:miniBufExplMapWindowNavVim = 1
-    "let g:miniBufExplMapWindowNavArrows = 1
-    "let g:miniBufExplMapCTabSwitchBufs = 1
-    "let g:miniBufExplModSelTarget = 1
-    "let g:miniBufExplSplitBelow = 1
-    "let g:miniBufExplUseSingleClick = 1
-    "let g:miniBufExplVSplit = 25
-    "let g:miniBufExplorerMoreThanOne = 2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Languages
@@ -498,18 +458,8 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     autocmd FileType css,less,javascript,php set tabstop=2
     autocmd FileType css,less,javascript,php set softtabstop=2
 
-" Python
-    "set foldmethod=indent
-    "set foldlevel=99
-    "autocmd FileType python set omnifunc=pythoncomplete#Complete
-    "autocmd FileType python imap <silent> <buffer> . .<C-X><C-O>
-
 " Less
     autocmd BufRead,BufNewFile *.less set filetype=less
-    "autocmd BufWritePre *.less :!lessc % > %:r.css
-
-" Css
-    "autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Funtion define
@@ -586,24 +536,24 @@ endfunction
 augroup JumpCursorOnEdit
    au!
    autocmd BufReadPost *
-            \ if expand("<afile>:p:h") !=? $TEMP |
-            \   if line("'\"") > 1 && line("'\"") <= line("$") |
-            \     let JumpCursorOnEdit_foo = line("'\"") |
-            \     let b:doopenfold = 1 |
-            \     if (foldlevel(JumpCursorOnEdit_foo) > foldlevel(JumpCursorOnEdit_foo - 1)) |
-            \        let JumpCursorOnEdit_foo = JumpCursorOnEdit_foo - 1 |
-            \        let b:doopenfold = 2 |
-            \     endif |
-            \     exe JumpCursorOnEdit_foo |
-            \   endif |
-            \ endif
+        \ if expand("<afile>:p:h") !=? $TEMP |
+        \   if line("'\"") > 1 && line("'\"") <= line("$") |
+        \     let JumpCursorOnEdit_foo = line("'\"") |
+        \     let b:doopenfold = 1 |
+        \     if (foldlevel(JumpCursorOnEdit_foo) > foldlevel(JumpCursorOnEdit_foo - 1)) |
+        \        let JumpCursorOnEdit_foo = JumpCursorOnEdit_foo - 1 |
+        \        let b:doopenfold = 2 |
+        \     endif |
+        \     exe JumpCursorOnEdit_foo |
+        \   endif |
+        \ endif
    " Need to postpone using "zv" until after reading the modelines.
    autocmd BufWinEnter *
-            \ if exists("b:doopenfold") |
-            \   exe "normal zv" |
-            \   if(b:doopenfold > 1) |
-            \       exe  "+".1 |
-            \   endif |
-            \   unlet b:doopenfold |
-            \ endif
+        \ if exists("b:doopenfold") |
+        \   exe "normal zv" |
+        \   if(b:doopenfold > 1) |
+        \       exe  "+".1 |
+        \   endif |
+        \   unlet b:doopenfold |
+        \ endif
 augroup END
