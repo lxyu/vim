@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Vim by lxyu</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Vim</h1>
+        <p>LxYu's personal vim config files</p>
+
+        <p class="view"><a href="https://github.com/lxyu/vim">View the Project on GitHub <small>lxyu/vim</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/lxyu/vim/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/lxyu/vim/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/lxyu/vim">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>LxYu's Vim Config</h1>
+
+<p>LxYu's personal vim config files.</p>
+
+<p>Inspired by <a href="http://spf13.com">spf13</a> and <a href="http://amix.dk">amix</a>.</p>
+
+<h2>Basic</h2>
+
+<h3>Install</h3>
+
+<p>Install it by a one-line command</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>curl https://raw.github.com/lxyu/vim/go -o - | sh
+</pre></div>
+
+<h3>Update</h3>
+
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> <span class="nv">$HOME</span>/.vim
+<span class="nv">$ </span>bash update.sh
+</pre></div>
+
+<h2>Plugins and How to</h2>
+
+<h3>Plugin Manager</h3>
+
+<p><a href="https://github.com/gmarik/vundle">Vundle</a> is used as plugin manager here.</p>
+
+<p>Plugin manager makes life easier. These lines on the top of <code>vimrc</code> config enable vundle.</p>
+
+<div class="highlight"><pre><span class="nb">set </span>rtp+<span class="o">=</span>~/.vim/bundle/vundle/
+call vundle#rc<span class="o">()</span>
+Bundle <span class="s2">"gmarik/vundle"</span>
+</pre></div>
+
+<p>Vundle manage vundle itself, and all the plugins below:</p>
+
+<div class="highlight"><pre>Bundle <span class="s1">'Lokaltog/vim-powerline'</span>
+Bundle <span class="s1">'MarcWeber/vim-addon-mw-utils'</span>
+Bundle <span class="s1">'Shougo/neocomplcache'</span>
+Bundle <span class="s1">'Townk/vim-autoclose'</span>
+Bundle <span class="s1">'altercation/vim-colors-solarized'</span>
+Bundle <span class="s1">'flazz/vim-colorschemes'</span>
+Bundle <span class="s1">'garbas/vim-snipmate'</span>
+Bundle <span class="s1">'honza/snipmate-snippets'</span>
+Bundle <span class="s1">'jistr/vim-nerdtree-tabs'</span>
+Bundle <span class="s1">'kien/ctrlp.vim'</span>
+Bundle <span class="s1">'majutsushi/tagbar'</span>
+Bundle <span class="s1">'mileszs/ack.vim'</span>
+Bundle <span class="s1">'scrooloose/nerdcommenter'</span>
+Bundle <span class="s1">'scrooloose/nerdtree'</span>
+Bundle <span class="s1">'scrooloose/syntastic'</span>
+Bundle <span class="s1">'tomtom/tlib_vim'</span>
+Bundle <span class="s1">'tpope/vim-fugitive'</span>
+Bundle <span class="s1">'tpope/vim-markdown'</span>
+Bundle <span class="s1">'tpope/vim-surround'</span>
+Bundle <span class="s1">'vim-scripts/Puppet-Syntax-Highlighting'</span>
+Bundle <span class="s1">'vim-scripts/sessionman.vim'</span>
+Bundle <span class="s1">'fholgado/minibufexpl.vim'</span>
+Bundle <span class="s1">'groenewege/vim-less'</span>
+Bundle <span class="s1">'tpope/vim-rails'</span>
+</pre></div>
+
+<p>To enable a new plugin, simplily add a new line and run <code>:BundleInstall</code> from vim or run the following command in shell:</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>vim +BundleInstall! +BundleClean +qall
+</pre></div>
+
+<h3>More</h3>
+
+<p>To be continued.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/lxyu">lxyu</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
