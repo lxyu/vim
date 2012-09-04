@@ -16,12 +16,12 @@ Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Townk/vim-autoclose'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'fholgado/minibufexpl.vim'
+"Bundle 'fholgado/minibufexpl.vim'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'garbas/vim-snipmate'
 Bundle 'godlygeek/tabular'
 Bundle 'groenewege/vim-less'
-Bundle 'honza/snipmate-snippets'
+Bundle 'lxyu/snipmate-snippets'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'kien/ctrlp.vim'
 Bundle 'majutsushi/tagbar'
@@ -35,6 +35,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-surround'
+Bundle 'vim-scripts/nginx.vim'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -79,19 +80,21 @@ set cc=80
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim UI
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
-    color solarized                    " load a colorscheme
-endif
 
 if has('gui_running')
+    colorscheme jellybeans
     set guifont=Monaco:h12         " set gui font
     set guioptions-=T              " remove the toolbar
-    set lines=40                   " 40 lines of text instead of 24,
+    set guioptions-=L              " remove the left scrollbar
+    set guioptions-=r              " remove the right scrollbar
 else
     set term=builtin_xterm         " Make terminal stuff works
-    let g:solarized_termcolors=256
-    let g:solarized_termtrans=1
-    set t_Co=256
+    if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
+        color solarized                    " load a colorscheme
+        let g:solarized_termcolors=256
+        let g:solarized_termtrans=1
+        set t_Co=256
+    endif
 endif
 
 set tabpagemax=15             " only show 15 tabs
@@ -307,7 +310,7 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     " Shortcut for reloading snippets, useful when developing
     "nnoremap <leader>smr <esc>:exec ReloadAllSnippets()<cr>
     let g:snips_author="Lx Yu <lx.yu@ele.me>"
-    "let g:snippets_dir="~/.vim/bundle/snipmate-snippets/"
+    let g:snippets_dir="~/.vim/bundle/snipmate-snippets/"
 
 " NerdTree
     map <C-n> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
@@ -400,11 +403,11 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:neocomplcache_enable_auto_select = 0
 
     " SuperTab like snippets behavior.
-    imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+    "imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 
     " Plugin key-mappings.
-    imap <C-k> <Plug>(neocomplcache_snippets_expand)
-    smap <C-k> <Plug>(neocomplcache_snippets_expand)
+    "imap <C-k> <Plug>(neocomplcache_snippets_expand)
+    "smap <C-k> <Plug>(neocomplcache_snippets_expand)
     inoremap <expr><C-g> neocomplcache#undo_completion()
     inoremap <expr><C-l> neocomplcache#complete_common_string()
 
