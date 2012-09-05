@@ -16,7 +16,6 @@ Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Townk/vim-autoclose'
 Bundle 'altercation/vim-colors-solarized'
-"Bundle 'fholgado/minibufexpl.vim'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'garbas/vim-snipmate'
 Bundle 'godlygeek/tabular'
@@ -26,7 +25,7 @@ Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'kien/ctrlp.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'mileszs/ack.vim'
-Bundle 'rodjek/vim-puppet'
+Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
@@ -42,39 +41,35 @@ Bundle 'vim-scripts/nginx.vim'
 " => Environment
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Basics
-set nocompatible         " must be first line
-set background=dark     " Assume a dark background
+set nocompatible               " must be first line
+set background=dark            " Assume a dark background
 
-" General
-set fencs=utf-8,gb2312,gbk      " Sets the default encoding
-set background=dark             " Assume a dark background
-filetype plugin indent on       " Automatically detect file types.
-syntax on                       " syntax highlighting
-"set mouse=a                     " automatically enable mouse usage
-"set autochdir                   " always switch to the current file directory.. Messes with some plugins, best left commented out
+                               " General
+set fencs=utf-8,gb2312,gbk     " Sets the default encoding
+set background=dark            " Assume a dark background
+filetype plugin indent on      " Automatically detect file types.
+syntax on                      " syntax highlighting
+set autochdir                  " always switch to the current file directory.
 
-set nospell                                     " spell checking off
-set shortmess+=filmnrxoOtT                      " abbrev. of messages (avoids 'hit enter')
-set virtualedit=onemore                         " allow for cursor beyond last character
-set history=1000                                " Store a ton of history (default is 20)
+set nospell                    " spell checking off
+set shortmess+=filmnrxoOtT     " abbrev. of messages (avoids 'hit enter')
+set virtualedit=onemore        " allow for cursor beyond last character
+set history=1000               " Store a ton of history (default is 20)
 
-" Setting up the directories
+                               " Setting up the directories
 set noswapfile
-set backup                         " backups are nice ...
+set backup                     " backups are nice ...
 set backupdir=~/.vim/backup
-set undofile                       " Persistent undo
+set undofile                   " persistent undo
+set undolevels=1000            " maximum number of changes that can be undone
+set undoreload=10000           " maximum number lines to save for undo on a buffer reload
 set undodir=~/.vim/undo
-"au BufWinLeave * silent! mkview   " make vim save view (state) (folds, cursor, etc)
-"au BufWinEnter * silent! loadview " make vim load view (state) (folds, cursor, etc)
 
 " When vimrc is edited, reload it
-autocmd! bufwritepost ~/.vimrc source ~/.vimrc
+autocmd! BufWritePost ~/.vimrc source ~/.vimrc
 
 " Since I use linux, I want this
 let g:clipbrdDefaultReg='+'
-
-" Highlight 81 column
-set cc=80
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -82,19 +77,21 @@ set cc=80
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if has('gui_running')
-    colorscheme jellybeans
-    set guifont=Monaco:h12         " set gui font
-    set guioptions-=T              " remove the toolbar
-    set guioptions-=L              " remove the left scrollbar
-    set guioptions-=r              " remove the right scrollbar
+    if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/jellybeans.vim"))
+        colorscheme jellybeans
+    endif
+    set guifont=Monaco:h12     " set gui font
+    set guioptions-=T          " remove the toolbar
+    set guioptions-=L          " remove the left scrollbar
+    set guioptions-=r          " remove the right scrollbar
 else
-    set term=builtin_xterm         " Make terminal stuff works
     if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
         color solarized                    " load a colorscheme
         let g:solarized_termcolors=256
         let g:solarized_termtrans=1
-        set t_Co=256
     endif
+    set term=builtin_xterm         " Make terminal stuff works
+    set t_Co=256
 endif
 
 set tabpagemax=15             " only show 15 tabs
@@ -125,7 +122,7 @@ set scrolljump=5               " Lines to scroll when cursor leaves screen
 set scrolloff=3                " Minimum lines to keep above and below cursor
 set nofoldenable               " Disable fold code
 set gdefault                   " The /g flag on :s substitutions by default
-set hid                        " Change buffer - without saving
+set hidden                     " Change buffer - without saving
 set magic                      " Set magic on, for regular expressions
 set autoread                   " Auto reload file on change
 set list
@@ -144,8 +141,6 @@ set expandtab     " tabs are spaces, not tabs
 set shiftwidth=4  " use indents of 4 spaces
 set tabstop=4     " an indentation every four columns
 set softtabstop=4 " let backspace delete indent
-"set matchpairs+=<:>                " match, to be used with %
-"set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
 " Remove trailing whitespaces and ^M chars
 "autocmd FileType c,cpp,java,php,js,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
@@ -167,6 +162,15 @@ map <leader>v :e! ~/.vimrc<cr>
 " Making it so ; works like : for commands. Saves typing and eliminates :W style typos due to lazy holding shift.
 nnoremap ; :
 
+" Easier moving in tabs and windows
+map <C-J> <C-W>j<C-W>_
+map <C-K> <C-W>k<C-W>_
+map <C-L> <C-W>l<C-W>_
+map <C-H> <C-W>h<C-W>_
+
+" Adjust viewports to the same size
+map <Leader>= <C-w>=
+
 " Remap VIM 0
 map 0 ^
 
@@ -185,12 +189,6 @@ vnoremap <silent> # :call VisualSearch('b')<CR>
 " When you press gv you vimgrep after the selected text
 vnoremap <silent> gv :call VisualSearch('gv')<CR>
 map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
-
-" Easier moving in tabs and windows
-map <C-J> <C-W>j
-map <C-K> <C-W>k
-map <C-L> <C-W>l
-map <C-H> <C-W>h
 
 " Close the current buffer
 map <leader>d :Bclose<cr>
@@ -240,10 +238,6 @@ nmap <silent> <leader>/ :nohlsearch<CR>
 " Change Working Directory to that of the current file
 cmap cwd lcd %:p:h
 cmap cd. lcd %:p:h
-
-" visual shifting (does not exit Visual mode)
-"vnoremap < <gv
-"vnoremap > >gv
 
 " Fix home and end keybindings for screen, particularly on mac
 " - for some reason this fixes the arrow keys too. huh.
@@ -318,7 +312,7 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     nmap <leader>nt :NERDTreeFind<CR>
 
     let NERDTreeShowBookmarks=1
-    let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+    let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '\.DS_Store']
     let NERDTreeChDirMode=0
     let NERDTreeQuitOnOpen=1
     let NERDTreeShowHidden=1
@@ -326,16 +320,16 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 
 " Tabularize {
     if exists(":Tabularize")
-      nmap <Leader>a= :Tabularize /=<CR>
-      vmap <Leader>a= :Tabularize /=<CR>
-      nmap <Leader>a: :Tabularize /:<CR>
-      vmap <Leader>a: :Tabularize /:<CR>
-      nmap <Leader>a:: :Tabularize /:\zs<CR>
-      vmap <Leader>a:: :Tabularize /:\zs<CR>
-      nmap <Leader>a, :Tabularize /,<CR>
-      vmap <Leader>a, :Tabularize /,<CR>
-      nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-      vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+      nmap <leader>a= :Tabularize /=<CR>
+      vmap <leader>a= :Tabularize /=<CR>
+      nmap <leader>a: :Tabularize /:<CR>
+      vmap <leader>a: :Tabularize /:<CR>
+      nmap <leader>a:: :Tabularize /:\zs<CR>
+      vmap <leader>a:: :Tabularize /:\zs<CR>
+      nmap <leader>a, :Tabularize /,<CR>
+      vmap <leader>a, :Tabularize /,<CR>
+      nmap <leader>a<Bar> :Tabularize /<Bar><CR>
+      vmap <leader>a<Bar> :Tabularize /<Bar><CR>
 
       " The following function automatically aligns when typing a
       " supported character
@@ -361,14 +355,6 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 
 " JSON
     nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
-
-" PyMode
-    let g:pymode_lint_checker = "pyflakes"
-
-     " Disable if python support not present
-    if !has('python')
-       let g:pymode = 1
-    endif
 
 " Ctrlp
     let g:ctrlp_working_path_mode = 'rc'
@@ -465,30 +451,17 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     autocmd FileType css,less,javascript,php,puppet set tabstop=2
     autocmd FileType css,less,javascript,php,puppet set softtabstop=2
 
+" Python
+    " Highlight 80 column
+    autocmd FileType python set cc=80
+
+
 " Less
     autocmd BufRead,BufNewFile *.less set filetype=less
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Funtion define
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! NERDTreeInitAsNeeded()
-    redir => bufoutput
-    buffers!
-    redir END
-    let idx = stridx(bufoutput, "NERD_tree")
-    if idx > -1
-        NERDTreeMirror
-        NERDTreeFind
-        wincmd l
-    endif
-endfunction
-
-function! CmdLine(str)
-  exe "menu Foo.Bar :" . a:str
-  emenu Foo.Bar
-  unmenu Foo
-endfunction
-
 " Search selection
 function! VisualSearch(direction) range
     let l:saved_reg = @"
