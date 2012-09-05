@@ -153,11 +153,8 @@ autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:va
 "location
 let mapleader = ','
 
-" Fast saving
-"nmap <leader>w :w!<cr>
-
 " Fast editing of the .vimrc
-map <leader>v :e! ~/.vimrc<cr>
+map <leader>v :e ~/.vimrc<cr>
 
 " Making it so ; works like : for commands. Saves typing and eliminates :W style typos due to lazy holding shift.
 nnoremap ; :
