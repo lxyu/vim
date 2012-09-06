@@ -14,7 +14,6 @@ Bundle "gmarik/vundle"
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'Shougo/neocomplcache'
-Bundle 'Townk/vim-autoclose'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'garbas/vim-snipmate'
@@ -36,6 +35,7 @@ Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/nginx.vim'
+Bundle 'vim-scripts/AutoClose'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -45,7 +45,7 @@ Bundle 'vim-scripts/nginx.vim'
 set nocompatible               " must be first line
 set background=dark            " Assume a dark background
 
-                               " General
+" General
 set fencs=utf-8,gb2312,gbk     " Sets the default encoding
 set background=dark            " Assume a dark background
 filetype plugin indent on      " Automatically detect file types.
@@ -57,7 +57,6 @@ set shortmess+=filmnrxoOtT     " abbrev. of messages (avoids 'hit enter')
 set virtualedit=onemore        " allow for cursor beyond last character
 set history=1000               " Store a ton of history (default is 20)
 
-                               " Setting up the directories
 set noswapfile
 set backup                     " backups are nice ...
 set backupdir=~/.vim/backup
@@ -292,11 +291,6 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 
 " Ctags
     set tags=./tags;/,~/.vimtags
-
-" AutoCloseTag
-    " Make it so AutoCloseTag works for xml and xhtml files as well
-    au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
-    nmap <Leader>ac <Plug>ToggleAutoCloseMappings
 
 " SnipMate
     " Shortcut for reloading snippets, useful when developing
