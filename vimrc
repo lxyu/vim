@@ -448,12 +448,14 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     " Highlight 80 column
     autocmd FileType python set cc=80
 
-
 " Less
     autocmd BufRead,BufNewFile *.less set filetype=less
 
 " Thrift
     autocmd BufRead,BufNewFile *.thrift set filetype=thrift
+
+" Puppet
+    autocmd BufRead,BufNewFile *.pp set filetype=puppet
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Funtion define
