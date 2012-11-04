@@ -440,9 +440,9 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 " => Languages
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Indent Fixes
-    autocmd FileType css,less,javascript,php,puppet set shiftwidth=2
-    autocmd FileType css,less,javascript,php,puppet set tabstop=2
-    autocmd FileType css,less,javascript,php,puppet set softtabstop=2
+    autocmd FileType css,less,javascript,php,puppet,yaml set shiftwidth=2
+    autocmd FileType css,less,javascript,php,puppet,yaml set tabstop=2
+    autocmd FileType css,less,javascript,php,puppet,yaml set softtabstop=2
 
 " Python
     " Highlight 80 column
