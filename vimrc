@@ -11,6 +11,7 @@ call vundle#rc()
 Bundle "gmarik/vundle"
 
 " Enable plugins
+Bundle 'Glench/Vim-Jinja2-Syntax'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'Shougo/neocomplcache'
@@ -35,8 +36,8 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/nginx.vim'
 Bundle 'vim-scripts/AutoClose'
+Bundle 'vim-scripts/nginx.vim'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -535,3 +536,11 @@ augroup JumpCursorOnEdit
         \   unlet b:doopenfold |
         \ endif
 augroup END
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Load local config
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if filereadable(expand("~/.vimrc_local"))
+    source ~/.vimrc_local
+endif
