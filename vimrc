@@ -20,7 +20,6 @@ Bundle 'flazz/vim-colorschemes'
 Bundle 'garbas/vim-snipmate'
 Bundle 'godlygeek/tabular'
 Bundle 'groenewege/vim-less'
-Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'kien/ctrlp.vim'
 Bundle 'lxyu/snipmate-snippets'
 Bundle 'majutsushi/tagbar'
@@ -305,12 +304,10 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     map <leader>e :NERDTreeFind<CR>
     nmap <leader>nt :NERDTreeFind<CR>
 
-    let NERDTreeShowBookmarks=1
-    let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '\.DS_Store']
+    "let NERDTreeShowBookmarks=1
     let NERDTreeChDirMode=2
-    let NERDTreeQuitOnOpen=1
+    let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '\.DS_Store']
     let NERDTreeShowHidden=1
-    let NERDTreeKeepTreeInNewTab=1
 
 " Tabularize {
     if exists(":Tabularize")
