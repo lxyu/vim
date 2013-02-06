@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-git pull
+git fetch; git rebase origin/master
 vim +BundleInstall! +BundleClean +qall
 
 echo "vim config now updated."
