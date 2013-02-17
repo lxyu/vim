@@ -12,9 +12,10 @@ Bundle "gmarik/vundle"
 
 " Enable plugins
 Bundle 'Glench/Vim-Jinja2-Syntax'
+Bundle 'Lokaltog/vim-easymotion'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'Shougo/neocomplcache'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'garbas/vim-snipmate'
@@ -189,7 +190,7 @@ vnoremap <silent> gv :call VisualSearch('gv')<CR>
 map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
 
 " Close the current buffer
-map <leader>d :Bclose<cr>
+"map <leader>d :Bclose<cr>
 
 " Close all the buffers
 map <leader>D :1,300 bd<cr>:q<cr>
@@ -298,6 +299,7 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     "nnoremap <leader>smr <esc>:exec ReloadAllSnippets()<cr>
     let g:snips_author="Lx Yu <lx.yu@ele.me>"
     let g:snippets_dir="~/.vim/bundle/snipmate-snippets/"
+    let g:snips_trigger_key = '<C-\>'
 
 " NerdTree
     map <C-n> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
