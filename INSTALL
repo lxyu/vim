@@ -9,10 +9,11 @@ for i in $HOME/.vim $HOME/.vimrc $HOME/.gvimrc; do [ -e $i ] && mv $i $i.$today;
 echo "Cloning vim"
 /usr/bin/env git clone git://github.com/lxyu/vim.git $HOME/.vim
 ln -s $HOME/.vim/vimrc $HOME/.vimrc
+touch $HOME/.vimrc_local
 
-# install vundle and plugins
-echo "Installing vundle"
-git clone http://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
+# install
+cd $HOME/.vim && make install || echo "Installation ERROR! Report issue at https://github.com/lxyu/vim"
 
-echo "Installing plugins"
-vim +BundleInstall! +BundleClean +qall
+echo "Installation complete"
+echo "1. You can write your customize configs at ~/.vimrc_local"
+echo "2. You may use `cd ~/.vim; make update` to update vim config to newest version."
