@@ -16,8 +16,10 @@ vimupdate:
 
 update: gitupdate vimupdate
 
-install: init update
+ycm_compile:
 	echo 'compiling youcompleteme...'
 	cd bundle/YouCompleteMe; bash install.sh
 
-.PHONY: update install
+install: init update ycm_compile
+
+.PHONY: update ycm_compile install
