@@ -15,12 +15,12 @@ Bundle 'Glench/Vim-Jinja2-Syntax'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'SirVer/ultisnips'
 Bundle 'Townk/vim-autoclose'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'flazz/vim-colorschemes'
-Bundle 'garbas/vim-snipmate'
 Bundle 'godlygeek/tabular'
 Bundle 'groenewege/vim-less'
 Bundle 'hynek/vim-python-pep8-indent'
@@ -284,13 +284,6 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 
 " Ctags
     set tags=./tags;/,~/.vimtags
-
-" SnipMate
-    " Shortcut for reloading snippets, useful when developing
-    "nnoremap <leader>smr <esc>:exec ReloadAllSnippets()<cr>
-    let g:snips_author="Lx Yu <lx.yu@ele.me>"
-    let g:snippets_dir="~/.vim/bundle/snipmate-snippets/"
-    let g:snips_trigger_key = '<C-\>'
 
 " NerdTree
     map <C-n> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
