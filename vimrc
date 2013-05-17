@@ -295,6 +295,10 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '\.DS_Store']
     let NERDTreeShowHidden=1
 
+" UltiSnips
+    au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+
 " Tabularize {
     if exists(":Tabularize")
       nmap <leader>a= :Tabularize /=<CR>
@@ -463,6 +467,22 @@ augroup JumpCursorOnEdit
         \   unlet b:doopenfold |
         \ endif
 augroup END
+
+" UltiSnips Complete
+function! g:UltiSnips_Complete()
+    call UltiSnips_ExpandSnippet()
+    if g:ulti_expand_res == 0
+        if pumvisible()
+            return "\<C-n>"
+        else
+            call UltiSnips_JumpForwards()
+            if g:ulti_jump_forwards_res == 0
+               return "\<TAB>"
+            endif
+        endif
+    endif
+    return ""
+endfunction
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
