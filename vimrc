@@ -41,6 +41,7 @@ Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/nagios-syntax'
 Bundle 'vim-scripts/nginx.vim'
+Bundle 'othree/html5.vim'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
