@@ -364,6 +364,9 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 " Powerline
     let g:Powerline_symbols = 'fancy'
 
+" YCM
+    let g:ycm_key_detailed_diagnostics = '<leader>-'
+
 " Nginx
     autocmd BufRead,BufNewFile /etc/nginx/* set filetype=nginx
     autocmd BufRead,BufNewFile /usr/local/etc/nginx/* set filetype=nginx
