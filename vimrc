@@ -127,7 +127,6 @@ set whichwrap=b,s,h,l,<,>,[,]  " Backspace and cursor keys wrap to
 set scrolljump=5               " Lines to scroll when cursor leaves screen
 set scrolloff=3                " Minimum lines to keep above and below cursor
 set nofoldenable               " Disable fold code
-set gdefault                   " The /g flag on :s substitutions by default
 set hidden                     " Change buffer - without saving
 set magic                      " Set magic on, for regular expressions
 set autoread                   " Auto reload file on change
