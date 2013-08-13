@@ -193,7 +193,7 @@ vnoremap <silent> gv :call VisualSearch('gv')<CR>
 map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
 
 " Close the current buffer
-"map <leader>d :Bclose<cr>
+map <leader>d :Bclose<cr>
 
 " Close all the buffers
 map <leader>D :1,300 bd<cr>:q<cr>
