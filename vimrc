@@ -292,7 +292,7 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 
     "let NERDTreeShowBookmarks=1
     let NERDTreeChDirMode=2
-    let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '\.DS_Store']
+    let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '\.DS_Store', '__pycache__', '\.egg-info$']
     let NERDTreeShowHidden=1
 
 " UltiSnips
