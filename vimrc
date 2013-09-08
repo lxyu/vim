@@ -202,7 +202,6 @@ vnoremap <silent> * :call VisualSearch('f')<CR>
 vnoremap <silent> # :call VisualSearch('b')<CR>
 " When you press gv you vimgrep after the selected text
 vnoremap <silent> gv :call VisualSearch('gv')<CR>
-map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
 
 " Close the current buffer
 map <leader>d :Bclose<cr>
@@ -358,13 +357,9 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     nmap <leader>sl :SessionList<CR>
     nmap <leader>ss :SessionSave<CR>
 
-" JSON
-    nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
-
 " Ctrlp
     let g:ctrlp_working_path_mode = 'rc'
-    let g:ctrlp_match_window = 'order:ttb,max:20'
-    nnoremap <C-o> :CtrlPBuffer<CR>
+    nnoremap <C-u> :CtrlPBuffer<CR>
     nnoremap <C-m> :CtrlPMRU<CR>
     nnoremap <C-e> :CtrlPClearCache<CR>
     let g:ctrlp_custom_ignore = {
@@ -394,7 +389,13 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:Powerline_symbols = 'fancy'
 
 " YCM
-    let g:ycm_key_detailed_diagnostics = '<leader>-'
+    " Show completion menu even when typing inside comments
+    let g:ycm_complete_in_comments = 1
+    " Add preview string to vim's completeopt option
+    let g:ycm_add_preview_to_completeopt = 1
+    " Auto close preview window after user accepts the offered completion string
+    let g:ycm_autoclose_preview_window_after_completion = 1
+    nnoremap <leader>j :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " Nginx
     autocmd BufRead,BufNewFile /etc/nginx/* set filetype=nginx
