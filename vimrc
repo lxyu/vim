@@ -52,10 +52,10 @@ set nocompatible               " must be first line
 set background=dark            " Assume a dark background
 
 " General
+syntax on                      " syntax highlighting
 set fencs=utf-8,gb2312,gbk     " Sets the default encoding
 set background=dark            " Assume a dark background
 filetype plugin indent on      " Automatically detect file types.
-syntax on                      " syntax highlighting
 set autochdir                  " always switch to the current file directory.
 
 set nospell                    " spell checking off
@@ -71,11 +71,15 @@ set undolevels=1000            " maximum number of changes that can be undone
 set undoreload=10000           " maximum number lines to save for undo on a buffer reload
 set undodir=~/.vim/undo
 
+" Enable basic mouse behavior such as resizing buffers.
+set mouse=a
+if exists('$TMUX')  " Support resizing in tmux
+    set ttymouse=xterm2
+endif"
+
+
 " When vimrc is edited, reload it
 autocmd! BufWritePost ~/.vimrc source ~/.vimrc
-
-" Since I use linux, I want this
-let g:clipbrdDefaultReg='+'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -100,18 +104,16 @@ else
     set t_Co=256
 endif
 
-set tabpagemax=15             " only show 15 tabs
-set showmode                  " display the current mode
+set tabpagemax=15              " only show 15 tabs
+set showmode                   " display the current mode
+set showcmd                    " show partial commands in status line and selected characters/lines in visual mode
 
-set cursorline                " highlight current line
+set ruler                      " show the ruler
+set cursorline                 " highlight current line
+set scrolljump=5               " Lines to scroll when cursor leaves screen
+set scrolloff=3                " Minimum lines to keep above and below cursor
 
-if has('cmdline_info')
-    set ruler                      " show the ruler
-    set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
-    set showcmd                    " show partial commands in status line and selected characters/lines in visual mode
-endif
-
-set laststatus=2
+set laststatus=2               " always show statusline
 set backspace=indent,eol,start " Backspace for dummys
 set linespace=0                " No extra spaces between rows
 set nu                         " Line numbers on
@@ -121,17 +123,27 @@ set hlsearch                   " Highlight search terms
 set winminheight=0             " Windows can be 0 line high
 set ignorecase                 " Case insensitive search
 set smartcase                  " Case sensitive when uc present
-set wildmenu                   " Show list instead of just completing
-set wildmode=list:longest,full " Command <Tab> completion, list matches, then longest common part, then all.
+
+set wildmenu                   " Show a navigable menu for tab completion
+set wildmode=longest,list,full
+
 set whichwrap=b,s,h,l,<,>,[,]  " Backspace and cursor keys wrap to
-set scrolljump=5               " Lines to scroll when cursor leaves screen
-set scrolloff=3                " Minimum lines to keep above and below cursor
 set nofoldenable               " Disable fold code
 set hidden                     " Change buffer - without saving
 set magic                      " Set magic on, for regular expressions
 set autoread                   " Auto reload file on change
-set list
+
+set list                                         " Show trailing whitespace
 set listchars=tab:>\ ,trail:\ ,extends:#,nbsp:\  " Highlight problematic whitespace
+
+" Fix Cursor in TMUX
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -141,7 +153,7 @@ set wrap          " wrap long lines
 set lbr           " set linebreak
 set tw=0          " sets the text width
 set ai            " Auto indent
-set si            " Smart indet
+set si            " Smart indent
 set expandtab     " tabs are spaces, not tabs
 set shiftwidth=4  " use indents of 4 spaces
 set tabstop=4     " an indentation every four columns
@@ -282,6 +294,18 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
     hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
+" Ack.vim
+    nmap <leader>a :Ack
+    if executable('ag')
+        let g:ackprg = 'ag --nogroup --column'
+
+        " Use Ag over Grep
+        set grepprg=ag\ --nogroup\ --nocolor
+
+        " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+        let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    endif
+
 " Ctags
     set tags=./tags;/,~/.vimtags
 
@@ -339,12 +363,13 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 
 " Ctrlp
     let g:ctrlp_working_path_mode = 'rc'
+    let g:ctrlp_match_window = 'order:ttb,max:20'
     nnoremap <C-o> :CtrlPBuffer<CR>
     nnoremap <C-m> :CtrlPMRU<CR>
     nnoremap <C-e> :CtrlPClearCache<CR>
     let g:ctrlp_custom_ignore = {
         \ 'dir':  '\.git$\|\.hg$\|\.svn$\|build$',
-        \ 'file': '\.exe$\|\.so$\|\.dll$\|\.DS_Store$\|\.pyc$' }
+        \ 'file': '\.exe$\|\.so$\|\.dll$\|\.DS_Store$\|\.pyc$\|__pycache__' }
 
 " Tagbar
     nnoremap <silent> <leader>t :TagbarToggle<CR>
@@ -356,6 +381,10 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     nnoremap <silent> <leader>gb :Gblame<CR>
     nnoremap <silent> <leader>gl :Glog<CR>
     nnoremap <silent> <leader>gp :Git push<CR>
+
+" Gitgutter
+    nmap <leader>g :GitGutterToggle<CR>
+    let g:gitgutter_enabled = 0
 
 " Syntastic
     let g:syntastic_check_on_open=1
