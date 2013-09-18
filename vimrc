@@ -358,9 +358,9 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     nmap <leader>ss :SessionSave<CR>
 
 " Ctrlp
-    let g:ctrlp_working_path_mode = 'rc'
-    nnoremap <C-u> :CtrlPBuffer<CR>
-    nnoremap <C-m> :CtrlPMRU<CR>
+    let g:ctrlp_working_path_mode = 'ra'
+    nnoremap <CR> :CtrlPBuffer<CR>
+    nnoremap <C-u> :CtrlPMRU<CR>
     nnoremap <C-e> :CtrlPClearCache<CR>
     let g:ctrlp_custom_ignore = {
         \ 'dir':  '\.git$\|\.hg$\|\.svn$\|build$',
