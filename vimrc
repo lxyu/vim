@@ -29,7 +29,9 @@ Bundle 'lxyu/snipmate-snippets'
 Bundle 'majutsushi/tagbar'
 Bundle 'mattn/zencoding-vim'
 Bundle 'mileszs/ack.vim'
+Bundle 'othree/html5.vim'
 Bundle 'rodjek/vim-puppet'
+Bundle 'saltstack/salt-vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
@@ -41,7 +43,6 @@ Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/nagios-syntax'
 Bundle 'vim-scripts/nginx.vim'
-Bundle 'othree/html5.vim'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -421,6 +422,10 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 
 " Puppet
     autocmd BufRead,BufNewFile *.pp set filetype=puppet
+
+" Jinja
+    autocmd BufRead,BufNewFile *.jinja set filetype=jinja
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Funtion define
