@@ -58,6 +58,7 @@ set fencs=utf-8,gb2312,gbk     " Sets the default encoding
 set background=dark            " Assume a dark background
 filetype plugin indent on      " Automatically detect file types.
 set autochdir                  " always switch to the current file directory.
+set clipboard=unnamed          " use system clipboard
 
 set nospell                    " spell checking off
 set shortmess+=filmnrxoOtT     " abbrev. of messages (avoids 'hit enter')
