@@ -1,6 +1,10 @@
 LxYu's Vim Config
 =================
 
+.. image:: https://d2weczhvl823v0.cloudfront.net/lxyu/vim/trend.png
+   :alt: Bitdeli badge
+   :target: https://bitdeli.com/free
+
 LxYu's vim config files.
 
 Inspired by `spf13 <http://spf13.com>`_ and `amix <http://amix.dk>`_.
