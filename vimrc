@@ -381,7 +381,9 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 
 " Gitgutter
     nmap <leader>g :GitGutterToggle<CR>
-    let g:gitgutter_enabled = 0
+    let g:gitgutter_enabled = 1
+    let g:gitgutter_realtime = 0
+    let g:gitgutter_eager = 0
 
 " Syntastic
     let g:syntastic_check_on_open=1
