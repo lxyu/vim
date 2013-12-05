@@ -39,9 +39,7 @@ Bundle 'sprsquish/thrift.vim'
 Bundle 'tomtom/tlib_vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/nagios-syntax'
 Bundle 'vim-scripts/nginx.vim'
 
 
@@ -409,9 +407,9 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 " => Languages
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Indent Fixes
-    autocmd FileType css,less,javascript,php,puppet,yaml set shiftwidth=2
-    autocmd FileType css,less,javascript,php,puppet,yaml set tabstop=2
-    autocmd FileType css,less,javascript,php,puppet,yaml set softtabstop=2
+    autocmd FileType css,less,html,javascript,php,puppet,yaml set shiftwidth=2
+    autocmd FileType css,less,html,javascript,php,puppet,yaml set tabstop=2
+    autocmd FileType css,less,html,javascript,php,puppet,yaml set softtabstop=2
 
 " Python
     " Highlight 80 column
