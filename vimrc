@@ -13,7 +13,7 @@ Bundle "gmarik/vundle"
 " Enable plugins
 Bundle 'Glench/Vim-Jinja2-Syntax'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'Lokaltog/vim-powerline'
+Bundle 'Lokaltog/powerline'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'SirVer/ultisnips'
 Bundle 'Townk/vim-autoclose'
@@ -321,8 +321,8 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let NERDTreeShowHidden=1
 
 " UltiSnips
-    au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsEditSplit="vertical"
 
 " Tabularize {
     if exists(":Tabularize")
@@ -390,7 +390,7 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:syntastic_auto_jump=1
 
 " Powerline
-    let g:Powerline_symbols = 'fancy'
+    set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
 " YCM
     " Show completion menu even when typing inside comments
