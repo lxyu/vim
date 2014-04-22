@@ -12,8 +12,8 @@ Bundle "gmarik/vundle"
 
 " Enable plugins
 Bundle 'Glench/Vim-Jinja2-Syntax'
-Bundle 'Lokaltog/vim-easymotion'
 Bundle 'Lokaltog/powerline'
+Bundle 'Lokaltog/vim-easymotion'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'SirVer/ultisnips'
 Bundle 'Townk/vim-autoclose'
@@ -38,6 +38,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'sprsquish/thrift.vim'
 Bundle 'tomtom/tlib_vim'
+Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
