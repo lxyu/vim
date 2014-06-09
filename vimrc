@@ -28,7 +28,7 @@ Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'kien/ctrlp.vim'
 Bundle 'lxyu/snipmate-snippets'
 Bundle 'majutsushi/tagbar'
-Bundle 'mattn/zencoding-vim'
+Bundle 'mattn/emmet-vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'othree/html5.vim'
 Bundle 'rodjek/vim-puppet'
@@ -402,6 +402,8 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     " Auto close preview window after user accepts the offered completion string
     let g:ycm_autoclose_preview_window_after_completion = 1
     nnoremap <leader>j :YcmCompleter GoToDefinitionElseDeclaration<CR>
+    " use system python
+    let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
 
 " Nginx
     autocmd BufRead,BufNewFile /etc/nginx/* set filetype=nginx
