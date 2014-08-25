@@ -20,7 +20,7 @@ Install it by a one-line command
 
 ::
 
-    $ curl https://raw.github.com/lxyu/vim/go -o - | sh
+    $ curl https://raw.githubusercontent.com/lxyu/vim/go/INSTALL -o - | sh
 
 
 Update
