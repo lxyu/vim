@@ -92,7 +92,7 @@ autocmd! BufWritePost ~/.vimrc source ~/.vimrc
 
 if has('gui_running')
     if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/jellybeans.vim"))
-        colorscheme jellybeans
+        colorscheme solarized
     endif
     set guifont=Monaco:h12     " set gui font
     set guioptions-=T          " remove the toolbar
