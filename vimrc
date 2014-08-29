@@ -11,38 +11,39 @@ call vundle#rc()
 Bundle "gmarik/vundle"
 
 " Enable plugins
-Bundle 'Glench/Vim-Jinja2-Syntax'
-Bundle 'Lokaltog/powerline'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'Shougo/neocomplete.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'Townk/vim-autoclose'
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'airblade/vim-gitgutter'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'cstrahan/vim-capnp'
-Bundle 'flazz/vim-colorschemes'
+Bundle 'bling/vim-airline'
+Bundle 'davidhalter/jedi-vim'
 Bundle 'godlygeek/tabular'
-Bundle 'groenewege/vim-less'
 Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'kien/ctrlp.vim'
 Bundle 'lxyu/snipmate-snippets'
 Bundle 'majutsushi/tagbar'
 Bundle 'mattn/emmet-vim'
 Bundle 'mileszs/ack.vim'
-Bundle 'othree/html5.vim'
-Bundle 'rodjek/vim-puppet'
-Bundle 'saltstack/salt-vim'
-Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
-Bundle 'sprsquish/thrift.vim'
-Bundle 'tomtom/tlib_vim'
 Bundle 'tpope/vim-abolish'
+Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
+
+" Colorthemes
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'flazz/vim-colorschemes'
+
+" Syntaxes
+Bundle 'Glench/Vim-Jinja2-Syntax'
+Bundle 'cstrahan/vim-capnp'
+Bundle 'groenewege/vim-less'
+Bundle 'othree/html5.vim'
+Bundle 'saltstack/salt-vim'
+Bundle 'sprsquish/thrift.vim'
 Bundle 'tshirtman/vim-cython'
 Bundle 'vim-scripts/nginx.vim'
 
@@ -52,12 +53,10 @@ Bundle 'vim-scripts/nginx.vim'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Basics
 set nocompatible               " must be first line
-set background=dark            " Assume a dark background
 
 " General
 syntax on                      " syntax highlighting
 set fencs=utf-8,gb2312,gbk     " Sets the default encoding
-set background=dark            " Assume a dark background
 filetype plugin indent on      " Automatically detect file types.
 set autochdir                  " always switch to the current file directory.
 set clipboard=unnamed          " use system clipboard
@@ -90,21 +89,18 @@ autocmd! BufWritePost ~/.vimrc source ~/.vimrc
 " => Vim UI
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+set background=dark        " Assume a dark background
 if has('gui_running')
-    if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/jellybeans.vim"))
-        colorscheme solarized
-    endif
+    color Tomorrow-Night
     set guifont=Monaco:h12     " set gui font
     set guioptions-=T          " remove the toolbar
     set guioptions-=L          " remove the left scrollbar
     set guioptions-=r          " remove the right scrollbar
 else
-    if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
-        color solarized                    " load a colorscheme
-        let g:solarized_termcolors=256
-        let g:solarized_termtrans=1
-    endif
-    set term=builtin_xterm         " Make terminal stuff works
+    color solarized
+    let g:solarized_termcolors=256
+    let g:solarized_termtrans=1
+    set term=builtin_xterm     " Make terminal stuff works
     set t_Co=256
 endif
 
@@ -361,6 +357,16 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     nmap <leader>sl :SessionList<CR>
     nmap <leader>ss :SessionSave<CR>
 
+" Airline
+    " Use powerline patched fonts
+    let g:airline_powerline_fonts = 1
+    " automatically displays all buffers when there's only one tab open
+    let g:airline#extensions#tabline#enabled = 1
+    " theme airline
+    "let g:airline_theme = 'luna'
+    let g:airline#extensions#tabline#left_sep = ' '
+    let g:airline#extensions#tabline#left_alt_sep = '|'
+
 " Ctrlp
     let g:ctrlp_working_path_mode = 'ra'
     nnoremap <CR> :CtrlPBuffer<CR>
@@ -369,6 +375,10 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:ctrlp_custom_ignore = {
         \ 'dir':  '\.git$\|\.hg$\|\.svn$\|build$',
         \ 'file': '\.exe$\|\.so$\|\.dll$\|\.DS_Store$\|\.pyc$\|__pycache__' }
+
+" Jedi
+    let g:jedi#use_tabs_not_buffers = 0
+    autocmd FileType python setlocal completeopt-=preview
 
 " Tagbar
     nnoremap <silent> <leader>t :TagbarToggle<CR>
@@ -391,14 +401,11 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:syntastic_check_on_open=1
     let g:syntastic_auto_jump=1
 
-" Powerline
-    set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
-
 " YCM
     " Show completion menu even when typing inside comments
-    let g:ycm_complete_in_comments = 1
+    "let g:ycm_complete_in_comments = 1
     " Add preview string to vim's completeopt option
-    let g:ycm_add_preview_to_completeopt = 1
+    "let g:ycm_add_preview_to_completeopt = 1
     " Auto close preview window after user accepts the offered completion string
     let g:ycm_autoclose_preview_window_after_completion = 1
     nnoremap <leader>j :YcmCompleter GoToDefinitionElseDeclaration<CR>
