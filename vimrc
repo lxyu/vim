@@ -17,6 +17,7 @@ Bundle 'Townk/vim-autoclose'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'bling/vim-airline'
 Bundle 'davidhalter/jedi-vim'
+Bundle 'ervandew/supertab'
 Bundle 'godlygeek/tabular'
 Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'kien/ctrlp.vim'
@@ -282,16 +283,16 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let b:match_ignorecase = 1
 
 " OmniComplete
-    if has("autocmd") && exists("+omnifunc")
-        autocmd Filetype *
-            \if &omnifunc == "" |
-            \setlocal omnifunc=syntaxcomplete#Complete |
-            \endif
-    endif
-
-    hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-    hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-    hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+"    if has("autocmd") && exists("+omnifunc")
+"        autocmd Filetype *
+"            \if &omnifunc == "" |
+"            \setlocal omnifunc=syntaxcomplete#Complete |
+"            \endif
+"    endif
+"
+"    hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+"    hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
+"    hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
 " Ack.vim
     nmap <leader>a :Ack
@@ -363,7 +364,7 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     " automatically displays all buffers when there's only one tab open
     let g:airline#extensions#tabline#enabled = 1
     " theme airline
-    "let g:airline_theme = 'luna'
+    let g:airline_theme = 'luna'
     let g:airline#extensions#tabline#left_sep = ' '
     let g:airline#extensions#tabline#left_alt_sep = '|'
 
@@ -378,6 +379,9 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 
 " Jedi
     let g:jedi#use_tabs_not_buffers = 0
+    let g:jedi#popup_select_first = 0
+    let g:jedi#auto_vim_configuration = 0
+    let g:jedi#popup_on_dot = 0
     autocmd FileType python setlocal completeopt-=preview
 
 " Tagbar
@@ -401,16 +405,37 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:syntastic_check_on_open=1
     let g:syntastic_auto_jump=1
 
-" YCM
-    " Show completion menu even when typing inside comments
-    "let g:ycm_complete_in_comments = 1
-    " Add preview string to vim's completeopt option
-    "let g:ycm_add_preview_to_completeopt = 1
-    " Auto close preview window after user accepts the offered completion string
-    let g:ycm_autoclose_preview_window_after_completion = 1
-    nnoremap <leader>j :YcmCompleter GoToDefinitionElseDeclaration<CR>
-    " use system python
-    let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
+" Neocomplete
+    " Disable AutoComplPop.
+    let g:acp_enableAtStartup = 0
+    " Use neocomplete.
+    let g:neocomplete#enable_at_startup = 1
+    " Use smartcase.
+    let g:neocomplete#enable_smart_case = 1
+    " Set minimum syntax keyword length.
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+    " Enable omni completion.
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+    " Enable heavy omni completion.
+    if !exists('g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns = {}
+    endif
+
+    if !exists('g:neocomplete#sources#omni#functions')
+        let g:neocomplete#sources#omni#functions = {}
+        let g:neocomplete#sources#omni#functions['python'] = 'jedi#completions'
+    endif
+
+    if !exists('g:neocomplete#force_omni_input_patterns')
+        let g:neocomplete#force_omni_input_patterns = {}
+        let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*'
+    endif
 
 " Nginx
     autocmd BufRead,BufNewFile /etc/nginx/* set filetype=nginx
