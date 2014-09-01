@@ -11,8 +11,6 @@ call vundle#rc()
 Bundle "gmarik/vundle"
 
 " Enable plugins
-Bundle 'Shougo/neocomplete.vim'
-Bundle 'SirVer/ultisnips'
 Bundle 'Townk/vim-autoclose'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'bling/vim-airline'
@@ -21,7 +19,6 @@ Bundle 'ervandew/supertab'
 Bundle 'godlygeek/tabular'
 Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'kien/ctrlp.vim'
-Bundle 'lxyu/snipmate-snippets'
 Bundle 'majutsushi/tagbar'
 Bundle 'mattn/emmet-vim'
 Bundle 'mileszs/ack.vim'
@@ -47,6 +44,17 @@ Bundle 'saltstack/salt-vim'
 Bundle 'sprsquish/thrift.vim'
 Bundle 'tshirtman/vim-cython'
 Bundle 'vim-scripts/nginx.vim'
+
+" Build compat
+if has('lua')
+    Bundle 'Shougo/neocomplete.vim'
+else
+    Bundle 'Shougo/neocomplcache.vim'
+end
+
+if has('python')
+    Bundle 'SirVer/ultisnips'
+end
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
