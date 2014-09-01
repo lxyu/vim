@@ -14,7 +14,10 @@ gitupdate:
 vimupdate:
 	vim +BundleInstall! +BundleClean +qall
 
-update: gitupdate vimupdate
+nvimupdate:
+	nvim +BundleInstall! +qall
+
+update: gitupdate vimupdate nvimupdate
 
 install: init update
 
