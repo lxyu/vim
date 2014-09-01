@@ -14,7 +14,6 @@ Bundle "gmarik/vundle"
 Bundle 'Townk/vim-autoclose'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'bling/vim-airline'
-Bundle 'davidhalter/jedi-vim'
 Bundle 'ervandew/supertab'
 Bundle 'godlygeek/tabular'
 Bundle 'hynek/vim-python-pep8-indent'
@@ -54,6 +53,7 @@ end
 
 if has('python')
     Bundle 'SirVer/ultisnips'
+    Bundle 'davidhalter/jedi-vim'
 end
 
 
