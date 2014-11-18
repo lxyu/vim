@@ -101,7 +101,7 @@ autocmd! BufWritePost ~/.vimrc source ~/.vimrc
 set background=dark        " Assume a dark background
 if has('gui_running')
     color Tomorrow-Night
-    set guifont=Monaco:h12     " set gui font
+    set guifont=Monaco\ for\ Powerline:h12     " set gui font
     set guioptions-=T          " remove the toolbar
     set guioptions-=L          " remove the left scrollbar
     set guioptions-=r          " remove the right scrollbar
