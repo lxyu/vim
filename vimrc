@@ -90,7 +90,7 @@ set undodir=~/.vim/undo
 set mouse=a
 if exists('$TMUX')  " Support resizing in tmux
     set ttymouse=xterm2
-endif"
+endif
 
 
 " When vimrc is edited, reload it
