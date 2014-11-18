@@ -6,62 +6,65 @@
 " => Vundle
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable vundle
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle "gmarik/vundle"
+set nocompatible               " must be first line
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
 
 " Enable plugins
-Bundle 'Townk/vim-autoclose'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'bling/vim-airline'
-Bundle 'ervandew/supertab'
-Bundle 'godlygeek/tabular'
-Bundle 'hynek/vim-python-pep8-indent'
-Bundle 'kien/ctrlp.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'mattn/emmet-vim'
-Bundle 'mileszs/ack.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'tpope/vim-abolish'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
+Plugin 'Townk/vim-autoclose'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'bling/vim-airline'
+Plugin 'ervandew/supertab'
+Plugin 'godlygeek/tabular'
+Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'mattn/emmet-vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
 
 " Colorthemes
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'flazz/vim-colorschemes'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'flazz/vim-colorschemes'
 
 " Syntaxes
-Bundle 'Glench/Vim-Jinja2-Syntax'
-Bundle 'cstrahan/vim-capnp'
-Bundle 'groenewege/vim-less'
-Bundle 'othree/html5.vim'
-Bundle 'saltstack/salt-vim'
-Bundle 'sprsquish/thrift.vim'
-Bundle 'tshirtman/vim-cython'
-Bundle 'vim-scripts/nginx.vim'
+Plugin 'Glench/Vim-Jinja2-Syntax'
+Plugin 'cstrahan/vim-capnp'
+Plugin 'groenewege/vim-less'
+Plugin 'othree/html5.vim'
+Plugin 'saltstack/salt-vim'
+Plugin 'sprsquish/thrift.vim'
+Plugin 'tshirtman/vim-cython'
+Plugin 'vim-scripts/nginx.vim'
 
 " Build compat
 if has('lua')
-    Bundle 'Shougo/neocomplete.vim'
+    Plugin 'Shougo/neocomplete.vim'
 else
-    Bundle 'Shougo/neocomplcache.vim'
+    Plugin 'Shougo/neocomplcache.vim'
 end
 
 if has('python')
-    Bundle 'SirVer/ultisnips'
-    Bundle 'davidhalter/jedi-vim'
+    Plugin 'SirVer/ultisnips'
+    Plugin 'davidhalter/jedi-vim'
 end
+
+call vundle#end()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Environment
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Basics
-set nocompatible               " must be first line
 
 " General
 syntax on                      " syntax highlighting

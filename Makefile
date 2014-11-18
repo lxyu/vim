@@ -6,16 +6,16 @@ help:
 	@echo '   make update       update to newest version '
 
 init:
-	git clone http://github.com/gmarik/vundle.git bundle/vundle
+	git clone https://github.com/gmarik/Vundle.vim.git bundle/Vundle.vim
 
 gitupdate:
 	git checkout master && git fetch && git rebase origin/master
 
 vimupdate:
-	vim +BundleInstall! +BundleClean +qall
+	vim +PluginInstall! +PluginClean +qall
 
 nvimupdate:
-	nvim +BundleInstall! +qall
+	nvim +PluginInstall! +PluginClean +qall
 
 update: gitupdate vimupdate nvimupdate
 
