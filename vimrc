@@ -375,7 +375,7 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     " automatically displays all buffers when there's only one tab open
     let g:airline#extensions#tabline#enabled = 1
     " theme airline
-    let g:airline_theme = 'luna'
+    let g:airline_theme = 'base16'
     let g:airline#extensions#tabline#left_sep = ' '
     let g:airline#extensions#tabline#left_alt_sep = '|'
 
