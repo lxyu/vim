@@ -40,7 +40,9 @@ Plugin 'flazz/vim-colorschemes'
 " Syntaxes
 Plugin 'Glench/Vim-Jinja2-Syntax'
 Plugin 'cstrahan/vim-capnp'
+Plugin 'derekwyatt/vim-scala'
 Plugin 'groenewege/vim-less'
+Plugin 'leafgarland/typescript-vim'
 Plugin 'othree/html5.vim'
 Plugin 'saltstack/salt-vim'
 Plugin 'sprsquish/thrift.vim'
@@ -87,10 +89,10 @@ set undoreload=10000           " maximum number lines to save for undo on a buff
 set undodir=~/.vim/undo
 
 " Enable basic mouse behavior such as resizing buffers.
-set mouse=a
-if exists('$TMUX')  " Support resizing in tmux
-    set ttymouse=xterm2
-endif
+"set mouse=a
+"if exists('$TMUX')  " Support resizing in tmux
+"    set ttymouse=xterm2
+"endif
 
 
 " When vimrc is edited, reload it
@@ -109,7 +111,7 @@ if has('gui_running')
     set guioptions-=L          " remove the left scrollbar
     set guioptions-=r          " remove the right scrollbar
 else
-    color solarized
+    color molokai
     let g:solarized_termcolors=256
     let g:solarized_termtrans=1
     set term=builtin_xterm     " Make terminal stuff works
@@ -216,10 +218,10 @@ vnoremap <silent> # :call VisualSearch('b')<CR>
 vnoremap <silent> gv :call VisualSearch('gv')<CR>
 
 " Close the current buffer
-map <leader>d :Bclose<cr>
+map <leader>d :bdelete<cr>
 
 " Close all the buffers
-map <leader>D :1,300 bd<cr>:q<cr>
+map <leader>D :bufdo bdelete<cr>:q<cr>
 
 " Use the arrows to something usefull
 map <right> :bn!<cr>
@@ -498,27 +500,6 @@ function! VisualSearch(direction) range
 
     let @/ = l:pattern
     let @" = l:saved_reg
-endfunction
-
-" Close buffer
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-    let l:currentBufNum = bufnr("%")
-    let l:alternateBufNum = bufnr("#")
-
-    if buflisted(l:alternateBufNum)
-        buffer #
-    else
-        bnext
-    endif
-
-    if bufnr("%") == l:currentBufNum
-        new
-    endif
-
-    if buflisted(l:currentBufNum)
-        execute("bdelete! ".l:currentBufNum)
-    endif
 endfunction
 
 " Get paste status
