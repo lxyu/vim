@@ -56,7 +56,7 @@ else
     Plugin 'Shougo/neocomplcache.vim'
 end
 
-if has('python')
+if has('python') || has('python3')
     Plugin 'SirVer/ultisnips'
     Plugin 'davidhalter/jedi-vim'
 end
@@ -391,10 +391,13 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
         \ 'file': '\.exe$\|\.so$\|\.dll$\|\.DS_Store$\|\.pyc$\|__pycache__' }
 
 " Jedi
-    let g:jedi#use_tabs_not_buffers = 0
-    let g:jedi#popup_select_first = 0
     let g:jedi#auto_vim_configuration = 0
-    let g:jedi#popup_on_dot = 0
+    let g:jedi#force_py_version=3
+    let g:jedi#show_call_signatures = "1"
+    let g:jedi#use_splits_not_buffers = "left"
+    let g:jedi#use_tabs_not_buffers = 1
+    " let g:jedi#popup_on_dot = 0
+    " let g:jedi#popup_select_first = 0
     autocmd FileType python setlocal completeopt-=preview
 
 " Tagbar
@@ -427,28 +430,13 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:neocomplete#enable_smart_case = 1
     " Set minimum syntax keyword length.
     let g:neocomplete#sources#syntax#min_keyword_length = 3
+    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
-    " Enable omni completion.
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-    " Enable heavy omni completion.
-    if !exists('g:neocomplete#sources#omni#input_patterns')
-        let g:neocomplete#sources#omni#input_patterns = {}
+    " Define keyword.
+    if !exists('g:neocomplete#keyword_patterns')
+        let g:neocomplete#keyword_patterns = {}
     endif
-
-    if !exists('g:neocomplete#sources#omni#functions')
-        let g:neocomplete#sources#omni#functions = {}
-        let g:neocomplete#sources#omni#functions['python'] = 'jedi#completions'
-    endif
-
-    if !exists('g:neocomplete#force_omni_input_patterns')
-        let g:neocomplete#force_omni_input_patterns = {}
-        let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*'
-    endif
+    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
 " Nginx
     autocmd BufRead,BufNewFile /etc/nginx/* set filetype=nginx
