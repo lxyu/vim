@@ -114,7 +114,7 @@ else
     color molokai
     let g:solarized_termcolors=256
     let g:solarized_termtrans=1
-    set term=builtin_xterm     " Make terminal stuff works
+    " set term=builtin_xterm     " Make terminal stuff works
     set t_Co=256
 endif
 
@@ -218,10 +218,10 @@ vnoremap <silent> # :call VisualSearch('b')<CR>
 vnoremap <silent> gv :call VisualSearch('gv')<CR>
 
 " Close the current buffer
-map <leader>d :bdelete<cr>
+map <leader>d :bd<cr>
 
 " Close all the buffers
-map <leader>D :bufdo bdelete<cr>:q<cr>
+map <leader>D :qa!<cr>
 
 " Use the arrows to something usefull
 map <right> :bn!<cr>
