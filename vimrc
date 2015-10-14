@@ -14,23 +14,27 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Enable plugins
+Plugin 'SirVer/ultisnips'
 Plugin 'Townk/vim-autoclose'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
+Plugin 'davidhalter/jedi-vim'
 Plugin 'ervandew/supertab'
 Plugin 'godlygeek/tabular'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'kien/ctrlp.vim'
+Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'mattn/emmet-vim'
 Plugin 'mileszs/ack.vim'
+Plugin 'plasticboy/vim-markdown'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
 
 " Colorthemes
@@ -56,10 +60,6 @@ else
     Plugin 'Shougo/neocomplcache.vim'
 end
 
-if has('python') || has('python3')
-    Plugin 'SirVer/ultisnips'
-    Plugin 'davidhalter/jedi-vim'
-end
 
 call vundle#end()
 
@@ -319,8 +319,10 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
         let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
     endif
 
-" Ctags
-    set tags=./tags;/,~/.vimtags
+" Markdown
+    let g:vim_markdown_folding_disabled=1
+    let g:vim_markdown_frontmatter=1
+    let g:vim_markdown_math=1
 
 " NerdTree
     map <C-n> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
