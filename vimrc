@@ -14,11 +14,14 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Enable plugins
+Plugin 'Shougo/vimproc.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'Townk/vim-autoclose'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'bling/vim-airline'
+Plugin 'dag/vim2hs'
 Plugin 'davidhalter/jedi-vim'
+Plugin 'eagletmt/ghcmod-vim'
+Plugin 'eagletmt/neco-ghc'
 Plugin 'ervandew/supertab'
 Plugin 'godlygeek/tabular'
 Plugin 'hynek/vim-python-pep8-indent'
@@ -36,6 +39,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " Colorthemes
 Plugin 'altercation/vim-colors-solarized'
@@ -406,6 +411,9 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 " Tagbar
     nnoremap <silent> <leader>t :TagbarToggle<CR>
 
+" SuperTab
+    let g:SuperTabDefaultCompletionType = "<c-n>"
+
 " Fugitive
     nnoremap <silent> <leader>gs :Gstatus<CR>
     nnoremap <silent> <leader>gd :Gdiff<CR>
@@ -444,6 +452,11 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 " Nginx
     autocmd BufRead,BufNewFile /etc/nginx/* set filetype=nginx
     autocmd BufRead,BufNewFile /usr/local/etc/nginx/* set filetype=nginx
+
+" Haskell
+    " Disable haskell-vim omnifunc
+    let g:haskellmode_completion_ghc = 0
+    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Languages
