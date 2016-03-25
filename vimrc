@@ -8,28 +8,30 @@
 " Enable vundle
 set nocompatible               " must be first line
 filetype off
+
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 
 " Enable plugins
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'Konfekt/FastFold'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'Townk/vim-autoclose'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'dag/vim2hs'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'eagletmt/ghcmod-vim'
-Plugin 'eagletmt/neco-ghc'
 Plugin 'ervandew/supertab'
 Plugin 'godlygeek/tabular'
-Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'kana/vim-textobj-indent'
+Plugin 'kana/vim-textobj-user'
 Plugin 'kien/ctrlp.vim'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'mattn/emmet-vim'
 Plugin 'mileszs/ack.vim'
+Plugin 'moll/vim-bbye'
+Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
@@ -41,23 +43,37 @@ Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vim-scripts/gitignore'
 
 " Colorthemes
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'flazz/vim-colorschemes'
 
 " Syntaxes
-Plugin 'Glench/Vim-Jinja2-Syntax'
 Plugin 'cstrahan/vim-capnp'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'groenewege/vim-less'
 Plugin 'leafgarland/typescript-vim'
-Plugin 'neovimhaskell/haskell-vim'
 Plugin 'othree/html5.vim'
+Plugin 'pbrisbin/vim-syntax-shakespeare'
 Plugin 'saltstack/salt-vim'
 Plugin 'sprsquish/thrift.vim'
 Plugin 'tshirtman/vim-cython'
 Plugin 'vim-scripts/nginx.vim'
+
+" Python
+Plugin 'davidhalter/jedi-vim'
+Plugin 'Glench/Vim-Jinja2-Syntax'
+Plugin 'hynek/vim-python-pep8-indent'
+
+" Haskell
+Plugin 'Twinside/vim-hoogle'
+Plugin 'bitc/vim-hdevtools'
+Plugin 'dag/vim2hs'
+Plugin 'eagletmt/ghcmod-vim'
+Plugin 'eagletmt/neco-ghc'
+Plugin 'mpickering/hlint-refactor-vim'
+Plugin 'neovimhaskell/haskell-vim'
 
 " Build compat
 if has('lua')
@@ -93,6 +109,11 @@ set undofile                   " persistent undo
 set undolevels=1000            " maximum number of changes that can be undone
 set undoreload=10000           " maximum number lines to save for undo on a buffer reload
 set undodir=~/.vim/undo
+
+" Use the `par` program for formatting paragraphs.
+"set formatprg=PARINIT='rTbgqR B=.,?_A_a Q=_s>|' par\ -w72
+set formatprg=par
+"set equalprg=par
 
 " Enable basic mouse behavior such as resizing buffers.
 "set mouse=a
@@ -138,6 +159,7 @@ set backspace=indent,eol,start " Backspace for dummys
 set linespace=0                " No extra spaces between rows
 set nu                         " Line numbers on
 set showmatch                  " Show matching brackets/parenthesis
+set lazyredraw                 " redraw only when we need to.
 set incsearch                  " Find as you type search
 set hlsearch                   " Highlight search terms
 set winminheight=0             " Windows can be 0 line high
@@ -148,7 +170,7 @@ set wildmenu                   " Show a navigable menu for tab completion
 set wildmode=longest,list,full
 
 set whichwrap=b,s,h,l,<,>,[,]  " Backspace and cursor keys wrap to
-set nofoldenable               " Disable fold code
+set nofoldenable               " Disable code fold
 set hidden                     " Change buffer - without saving
 set magic                      " Set magic on, for regular expressions
 set autoread                   " Auto reload file on change
@@ -180,14 +202,13 @@ set tabstop=4     " an indentation every four columns
 set softtabstop=4 " let backspace delete indent
 " Remove trailing whitespaces and ^M chars
 "autocmd FileType c,cpp,java,php,js,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
-autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+"autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Key Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"The default leader is '\', but many people prefer ',' as it's in a standard
-"location
+" The default leader is '\', but many people prefer ',' as it's in a standard location
 let mapleader = ','
 
 " Fast editing of the .vimrc
@@ -203,7 +224,7 @@ map <C-L> <C-W>l
 map <C-H> <C-W>h
 
 " Adjust viewports to the same size
-map <Leader>= <C-w>=
+map <leader>= <C-w>=
 
 " Remap VIM 0
 map 0 ^
@@ -212,7 +233,7 @@ map 0 ^
 inoremap jk <Esc>
 
 " Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Paste mode toggle
 map <leader>pp :setlocal paste!<cr>
@@ -224,10 +245,10 @@ vnoremap <silent> # :call VisualSearch('b')<CR>
 vnoremap <silent> gv :call VisualSearch('gv')<CR>
 
 " Close the current buffer
-map <leader>d :bd<cr>
+map <leader>d :Bdelete<cr>
 
 " Close all the buffers
-map <leader>D :qa!<cr>
+map <leader>D :bufdo :Bdelete<cr>:q<cr>
 
 " Use the arrows to something usefull
 map <right> :bn!<cr>
@@ -313,6 +334,11 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 "    hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
 "    hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
+" Autoformat
+    let g:autoformat_autoindent = 0
+    let g:autoformat_retab = 0
+    let g:autoformat_remove_trailing_spaces = 0
+
 " Ack.vim
     nmap <leader>a :Ack
     if executable('ag')
@@ -390,6 +416,7 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:airline#extensions#tabline#left_alt_sep = '|'
 
 " Ctrlp
+    let g:ctrlp_match_window = 'bottom,order:ttb'
     let g:ctrlp_working_path_mode = 'ra'
     nnoremap <CR> :CtrlPBuffer<CR>
     nnoremap <C-u> :CtrlPMRU<CR>
@@ -432,6 +459,9 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:syntastic_check_on_open=1
     let g:syntastic_auto_jump=1
 
+    let g:syntastic_haskell_checkers = ["hlint"]
+    let g:syntastic_haskell_hdevtools_args = "-g -Wall -g -fno-warn-unused-do-bind"
+
 " Neocomplete
     " Disable AutoComplPop.
     let g:acp_enableAtStartup = 0
@@ -449,14 +479,24 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     endif
     let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-" Nginx
-    autocmd BufRead,BufNewFile /etc/nginx/* set filetype=nginx
-    autocmd BufRead,BufNewFile /usr/local/etc/nginx/* set filetype=nginx
-
-" Haskell
+" Haskell-Vim
     " Disable haskell-vim omnifunc
     let g:haskellmode_completion_ghc = 0
+    let g:ycm_semantic_triggers = {'haskell' : ['.']}
     autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+" Vim2hs
+    "let g:haskell_conceal_wide         = 1
+    let g:haskell_conceal              = 0
+    let g:haskell_hsp                  = 0
+    let g:haskell_conceal_enumerations = 0
+
+" HDevTools
+    let g:syntastic_haskell_hdevtools_args = '-g-Wall'
+
+    autocmd FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
+    autocmd FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
+    autocmd FileType haskell nnoremap <buffer> <silent> <F3> :HdevtoolsInfo<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Languages
@@ -469,6 +509,7 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 " Python
     " Highlight 80 column
     autocmd FileType python set cc=80
+    autocmd BufWritePre *.py :Autoformat
 
 " Less
     autocmd BufRead,BufNewFile *.less set filetype=less
@@ -481,6 +522,14 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 
 " Jinja
     autocmd BufRead,BufNewFile *.jinja set filetype=jinja
+
+" Haskell
+    autocmd FileType haskell setlocal formatprg=xargs\ pointfree
+    autocmd BufWritePre *.hs :Autoformat
+
+" Nginx
+    autocmd BufRead,BufNewFile /etc/nginx/* set filetype=nginx
+    autocmd BufRead,BufNewFile /usr/local/etc/nginx/* set filetype=nginx
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
