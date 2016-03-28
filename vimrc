@@ -5,9 +5,12 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vundle
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if &compatible
+   set nocompatible
+endif
+
 " Enable vundle
-set nocompatible               " must be first line
-filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -62,7 +65,6 @@ Plugin 'tshirtman/vim-cython'
 Plugin 'vim-scripts/nginx.vim'
 
 " Python
-Plugin 'davidhalter/jedi-vim'
 Plugin 'Glench/Vim-Jinja2-Syntax'
 Plugin 'hynek/vim-python-pep8-indent'
 
@@ -76,10 +78,12 @@ Plugin 'mpickering/hlint-refactor-vim'
 Plugin 'neovimhaskell/haskell-vim'
 
 " Build compat
-if has('lua')
-    Plugin 'Shougo/neocomplete.vim'
+if has('nvim')
+    Plugin 'Shougo/deoplete.nvim'
+    Plugin 'zchee/deoplete-jedi'
 else
-    Plugin 'Shougo/neocomplcache.vim'
+    Plugin 'Shougo/neocomplete.vim'
+    Plugin 'davidhalter/jedi-vim'
 end
 
 call vundle#end()
@@ -462,13 +466,13 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:syntastic_haskell_hdevtools_args = "-g -Wall -g -fno-warn-unused-do-bind"
 
 " Neocomplete
+    set completeopt+=noinsert,noselect
+    set completeopt-=preview
+
     " Disable AutoComplPop.
     let g:acp_enableAtStartup = 0
-    " Use neocomplete.
     let g:neocomplete#enable_at_startup = 1
-    " Use smartcase.
     let g:neocomplete#enable_smart_case = 1
-    " Set minimum syntax keyword length.
     let g:neocomplete#sources#syntax#min_keyword_length = 3
     let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
@@ -478,10 +482,15 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     endif
     let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
+" Deoplete
+    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#enable_smart_case = 1
+
 " Haskell-Vim
     " Disable haskell-vim omnifunc
     let g:haskellmode_completion_ghc = 0
     let g:ycm_semantic_triggers = {'haskell' : ['.']}
+
     autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 " Vim2hs
