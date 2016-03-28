@@ -609,6 +609,6 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Load local config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if filereadable(expand("~/.vimrc_local"))
-    source ~/.vimrc_local
+if filereadable(expand("~/.vimrc.local"))
+    source ~/.vimrc.local
 endif
