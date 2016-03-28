@@ -82,7 +82,6 @@ else
     Plugin 'Shougo/neocomplcache.vim'
 end
 
-
 call vundle#end()
 
 
@@ -138,7 +137,8 @@ if has('gui_running')
     set guioptions-=L          " remove the left scrollbar
     set guioptions-=r          " remove the right scrollbar
 else
-    color molokai
+    "color molokai
+    color Tomorrow-Night
     let g:solarized_termcolors=256
     let g:solarized_termtrans=1
     " set term=builtin_xterm     " Make terminal stuff works
