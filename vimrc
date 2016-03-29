@@ -29,16 +29,14 @@ Plugin 'godlygeek/tabular'
 Plugin 'kana/vim-textobj-indent'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kien/ctrlp.vim'
-Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'luochen1990/rainbow'
 Plugin 'majutsushi/tagbar'
 Plugin 'mattn/emmet-vim'
 Plugin 'mileszs/ack.vim'
-Plugin 'moll/vim-bbye'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
@@ -51,6 +49,7 @@ Plugin 'vim-scripts/gitignore'
 " Colorthemes
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'flazz/vim-colorschemes'
+Plugin 'zenorocha/dracula-theme'
 
 " Syntaxes
 Plugin 'cstrahan/vim-capnp'
@@ -114,16 +113,7 @@ set undoreload=10000           " maximum number lines to save for undo on a buff
 set undodir=~/.vim/undo
 
 " Use the `par` program for formatting paragraphs.
-"set formatprg=PARINIT='rTbgqR B=.,?_A_a Q=_s>|' par\ -w72
 set formatprg=par
-"set equalprg=par
-
-" Enable basic mouse behavior such as resizing buffers.
-"set mouse=a
-"if exists('$TMUX')  " Support resizing in tmux
-"    set ttymouse=xterm2
-"endif
-
 
 " When vimrc is edited, reload it
 autocmd! BufWritePost ~/.vimrc source ~/.vimrc
@@ -155,8 +145,6 @@ set showcmd                    " show partial commands in status line and select
 
 set ruler                      " show the ruler
 set cursorline                 " highlight current line
-set scrolljump=5               " Lines to scroll when cursor leaves screen
-set scrolloff=3                " Minimum lines to keep above and below cursor
 
 set laststatus=2               " always show statusline
 set backspace=indent,eol,start " Backspace for dummys
@@ -191,19 +179,56 @@ else
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
+set history=1000
+set tabpagemax=50
+
+set complete-=i
+set nrformats-=octal
+set ttimeout
+set ttimeoutlen=100
+
+set completeopt+=noinsert,noselect
+set completeopt-=preview
+
+" scroll
+if !&scrolloff
+  set scrolloff=1
+endif
+if !&sidescrolloff
+  set sidescrolloff=5
+endif
+set display+=lastline
+
+if &listchars ==# 'eol:$'
+  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+endif
+
+if v:version > 703 || v:version == 703 && has("patch541")
+  set formatoptions+=j " Delete comment character when joining commented lines
+endif
+
+if has('path_extra')
+  setglobal tags-=./tags tags-=./tags; tags^=./tags;
+endif
+
+if !empty(&viminfo)
+  set viminfo^=!
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Formatting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set wrap          " wrap long lines
-set lbr           " set linebreak
-set tw=0          " sets the text width
-set ai            " Auto indent
-set si            " Smart indent
-set expandtab     " tabs are spaces, not tabs
-set shiftwidth=4  " use indents of 4 spaces
-set tabstop=4     " an indentation every four columns
-set softtabstop=4 " let backspace delete indent
+set wrap            " wrap long lines
+set lbr             " set linebreak
+set tw=0            " sets the text width
+set ai              " Auto indent
+set si              " Smart indent
+set expandtab       " tabs are spaces, not tabs
+set shiftwidth=4    " use indents of 4 spaces
+set tabstop=4       " an indentation every four columns
+set softtabstop=4   " let backspace delete indent
+set nojoinspaces    " Prevents inserting two spaces after punctuation on a join (J)
+
 " Remove trailing whitespaces and ^M chars
 "autocmd FileType c,cpp,java,php,js,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 "autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
@@ -222,10 +247,10 @@ map <leader>v :e ~/.vimrc<cr>
 nnoremap ; :
 
 " Easier moving in tabs and windows
-map <C-J> <C-W>j
-map <C-K> <C-W>k
-map <C-L> <C-W>l
-map <C-H> <C-W>h
+map <C-J> <C-W>j<C-W>_
+map <C-K> <C-W>k<C-W>_
+map <C-L> <C-W>l<C-W>_
+map <C-H> <C-W>h<C-W>_
 
 " Adjust viewports to the same size
 map <leader>= <C-w>=
@@ -249,10 +274,10 @@ vnoremap <silent> # :call VisualSearch('b')<CR>
 vnoremap <silent> gv :call VisualSearch('gv')<CR>
 
 " Close the current buffer
-map <leader>d :Bdelete<cr>
+map <leader>d :bd<CR>
 
 " Close all the buffers
-map <leader>D :bufdo :Bdelete<cr>:q<cr>
+map <leader>D :bufdo bd<CR>:qa<CR>
 
 " Use the arrows to something usefull
 map <right> :bn!<cr>
@@ -290,7 +315,13 @@ nmap <leader>f8 :set foldlevel=8<CR>
 nmap <leader>f9 :set foldlevel=9<CR>
 
 "clearing highlighted search
-nmap <silent> <leader>/ :nohlsearch<CR>
+nmap <silent> <leader>/ :set invhlsearch<CR>
+
+" Find merge conflict markers
+map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
+
+" Allow using the repeat operator with a visual selection (!)
+vnoremap . :normal .<CR>
 
 " Shortcuts
 " Change Working Directory to that of the current file
@@ -326,22 +357,10 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:NERDShutUp=1
     let b:match_ignorecase = 1
 
-" OmniComplete
-"    if has("autocmd") && exists("+omnifunc")
-"        autocmd Filetype *
-"            \if &omnifunc == "" |
-"            \setlocal omnifunc=syntaxcomplete#Complete |
-"            \endif
-"    endif
-"
-"    hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-"    hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-"    hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
-
 " Autoformat
     let g:autoformat_autoindent = 0
     let g:autoformat_retab = 0
-    let g:autoformat_remove_trailing_spaces = 0
+    let g:autoformat_remove_trailing_spaces = 1
 
 " Ack.vim
     nmap <leader>a :Ack
@@ -374,39 +393,24 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:UltiSnipsExpandTrigger="<tab>"
     let g:UltiSnipsEditSplit="vertical"
 
-" Tabularize {
-    nmap <leader>a= :Tabularize /=<CR>
-    vmap <leader>a= :Tabularize /=<CR>
+" Tabularize
+    nmap <leader>a& :Tabularize /&<CR>
+    vmap <leader>a& :Tabularize /&<CR>
+    nmap <leader>a= :Tabularize /^[^=]*\zs=<CR>
+    vmap <leader>a= :Tabularize /^[^=]*\zs=<CR>
+    nmap <leader>a=> :Tabularize /=><CR>
+    vmap <leader>a=> :Tabularize /=><CR>
     nmap <leader>a: :Tabularize /:<CR>
     vmap <leader>a: :Tabularize /:<CR>
     nmap <leader>a:: :Tabularize /:\zs<CR>
     vmap <leader>a:: :Tabularize /:\zs<CR>
     nmap <leader>a, :Tabularize /,<CR>
     vmap <leader>a, :Tabularize /,<CR>
+    nmap <leader>a,, :Tabularize /,\zs<CR>
+    vmap <leader>a,, :Tabularize /,\zs<CR>
     nmap <leader>a<Bar> :Tabularize /<Bar><CR>
     vmap <leader>a<Bar> :Tabularize /<Bar><CR>
-
-    " The following function automatically aligns when typing a
-    " supported character
-    inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align(' ')<CR>a
-    inoremap <silent> :   :<Esc>:call <SID>align(':')<CR>a
-    inoremap <silent> =   =<Esc>:call <SID>align('=')<CR>a
-
-    function! s:align(aa)
-        let p = '^.*\s'.a:aa.'\s.*$'
-        if exists(':Tabularize') && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-            let column = strlen(substitute(getline('.')[0:col('.')],'[^'.a:aa.']','','g'))
-            let position = strlen(matchstr(getline('.')[0:col('.')],'.*'.a:aa.':\s*\zs.*'))
-            exec 'Tabularize/'.a:aa.'/l1'
-            normal! 0
-            call search(repeat('[^'.a:aa.']*'.a:aa,column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-        endif
-    endfunction
-
-" Session List
-    set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
-    nmap <leader>sl :SessionList<CR>
-    nmap <leader>ss :SessionSave<CR>
+    nmap <leader>a= :Tabularize /=<CR>
 
 " Airline
     " Use powerline patched fonts
@@ -421,12 +425,31 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 " Ctrlp
     let g:ctrlp_match_window = 'bottom,order:ttb'
     let g:ctrlp_working_path_mode = 'ra'
-    nnoremap <CR> :CtrlPBuffer<CR>
+    "nnoremap <CR> :CtrlPBuffer<CR>
     nnoremap <C-u> :CtrlPMRU<CR>
     nnoremap <C-e> :CtrlPClearCache<CR>
     let g:ctrlp_custom_ignore = {
         \ 'dir':  '\.git$\|\.hg$\|\.svn$\|build$',
         \ 'file': '\.exe$\|\.so$\|\.dll$\|\.DS_Store$\|\.pyc$\|__pycache__' }
+
+    if executable('ag')
+        let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
+    elseif executable('ack')
+        let s:ctrlp_fallback = 'ack %s --nocolor -f'
+    else
+        let s:ctrlp_fallback = 'find %s -type f'
+    endif
+
+    if exists("g:ctrlp_user_command")
+        unlet g:ctrlp_user_command
+    endif
+    let g:ctrlp_user_command = {
+        \ 'types': {
+            \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+            \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+        \ },
+        \ 'fallback': s:ctrlp_fallback
+    \ }
 
 " Jedi
     let g:jedi#auto_vim_configuration = 0
@@ -436,7 +459,6 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:jedi#use_tabs_not_buffers = 1
     " let g:jedi#popup_on_dot = 0
     " let g:jedi#popup_select_first = 0
-    autocmd FileType python setlocal completeopt-=preview
 
 " Tagbar
     nnoremap <silent> <leader>t :TagbarToggle<CR>
@@ -458,6 +480,9 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:gitgutter_realtime = 0
     let g:gitgutter_eager = 0
 
+" Rainbow
+    let g:rainbow_active = 1
+
 " Syntastic
     let g:syntastic_check_on_open=1
     let g:syntastic_auto_jump=1
@@ -465,16 +490,20 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:syntastic_haskell_checkers = ["hlint"]
     let g:syntastic_haskell_hdevtools_args = "-g -Wall -g -fno-warn-unused-do-bind"
 
-" Neocomplete
-    set completeopt+=noinsert,noselect
-    set completeopt-=preview
+" TextObj
+    augroup textobj_quote
+        autocmd!
+        autocmd FileType markdown call textobj#quote#init()
+        autocmd FileType textile call textobj#quote#init()
+        autocmd FileType text call textobj#quote#init({'educate': 0})
+    augroup END
 
-    " Disable AutoComplPop.
+" Neocomplete
     let g:acp_enableAtStartup = 0
     let g:neocomplete#enable_at_startup = 1
     let g:neocomplete#enable_smart_case = 1
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
-    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+    let g:neocomplete#enable_auto_delimiter = 1
+    let g:neocomplete#max_list = 15
 
     " Define keyword.
     if !exists('g:neocomplete#keyword_patterns')
@@ -486,12 +515,28 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#enable_smart_case = 1
 
+    if !exists('g:deoplete#omni#input_patterns')
+      let g:deoplete#omni#input_patterns = {}
+    endif
+
+    "inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
+    "inoremap <leader><Tab> <Space><Space>
+
+    autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+    " enable omni completion.
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
 " Haskell-Vim
     " Disable haskell-vim omnifunc
     let g:haskellmode_completion_ghc = 0
     let g:ycm_semantic_triggers = {'haskell' : ['.']}
-
-    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 " Vim2hs
     "let g:haskell_conceal_wide         = 1
@@ -510,9 +555,9 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 " => Languages
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Indent Fixes
-    autocmd FileType css,less,html,jinja,javascript,php,puppet,yaml set shiftwidth=2
-    autocmd FileType css,less,html,jinja,javascript,php,puppet,yaml set tabstop=2
-    autocmd FileType css,less,html,jinja,javascript,php,puppet,yaml set softtabstop=2
+    autocmd FileType css,less,html,haskell,jinja,javascript,php,puppet,yaml set shiftwidth=2
+    autocmd FileType css,less,html,haskell,jinja,javascript,php,puppet,yaml set tabstop=2
+    autocmd FileType css,less,html,haskell,jinja,javascript,php,puppet,yaml set softtabstop=2
 
 " Python
     " Highlight 80 column
@@ -613,7 +658,6 @@ function! g:UltiSnips_Complete()
     endif
     return ""
 endfunction
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Load local config
