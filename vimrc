@@ -26,13 +26,11 @@ Plugin 'Townk/vim-autoclose'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'ervandew/supertab'
 Plugin 'godlygeek/tabular'
-Plugin 'kana/vim-textobj-indent'
 Plugin 'kana/vim-textobj-user'
+Plugin 'kana/vim-textobj-indent'
 Plugin 'kien/ctrlp.vim'
-Plugin 'luochen1990/rainbow'
 Plugin 'majutsushi/tagbar'
 Plugin 'mattn/emmet-vim'
-Plugin 'mileszs/ack.vim'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'scrooloose/nerdtree'
@@ -362,18 +360,6 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:autoformat_retab = 0
     let g:autoformat_remove_trailing_spaces = 1
 
-" Ack.vim
-    nmap <leader>a :Ack
-    if executable('ag')
-        let g:ackprg = 'ag --nogroup --column'
-
-        " Use Ag over Grep
-        set grepprg=ag\ --nogroup\ --nocolor
-
-        " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-        let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    endif
-
 " Markdown
     let g:vim_markdown_folding_disabled=1
     let g:vim_markdown_frontmatter=1
@@ -394,23 +380,13 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:UltiSnipsEditSplit="vertical"
 
 " Tabularize
-    nmap <leader>a& :Tabularize /&<CR>
-    vmap <leader>a& :Tabularize /&<CR>
-    nmap <leader>a= :Tabularize /^[^=]*\zs=<CR>
-    vmap <leader>a= :Tabularize /^[^=]*\zs=<CR>
-    nmap <leader>a=> :Tabularize /=><CR>
-    vmap <leader>a=> :Tabularize /=><CR>
-    nmap <leader>a: :Tabularize /:<CR>
-    vmap <leader>a: :Tabularize /:<CR>
-    nmap <leader>a:: :Tabularize /:\zs<CR>
-    vmap <leader>a:: :Tabularize /:\zs<CR>
-    nmap <leader>a, :Tabularize /,<CR>
-    vmap <leader>a, :Tabularize /,<CR>
-    nmap <leader>a,, :Tabularize /,\zs<CR>
-    vmap <leader>a,, :Tabularize /,\zs<CR>
-    nmap <leader>a<Bar> :Tabularize /<Bar><CR>
-    vmap <leader>a<Bar> :Tabularize /<Bar><CR>
-    nmap <leader>a= :Tabularize /=<CR>
+    vmap a= :Tabularize /=<CR>
+    vmap a; :Tabularize /::<CR>
+    vmap a- :Tabularize /-><CR>
+    vmap a: :Tabularize /:<CR>
+    vmap a, :Tabularize /,<CR>
+    vmap a,, :Tabularize /,\zs<CR>
+    vmap a<Bar> :Tabularize /<Bar><CR>
 
 " Airline
     " Use powerline patched fonts
@@ -444,12 +420,12 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
         unlet g:ctrlp_user_command
     endif
     let g:ctrlp_user_command = {
-        \ 'types': {
-            \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-            \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-        \ },
-        \ 'fallback': s:ctrlp_fallback
-    \ }
+                \ 'types': {
+                \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+                \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+                \ },
+                \ 'fallback': s:ctrlp_fallback
+                \ }
 
 " Jedi
     let g:jedi#auto_vim_configuration = 0
