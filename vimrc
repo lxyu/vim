@@ -56,8 +56,9 @@ Plugin 'groenewege/vim-less'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'othree/html5.vim'
 Plugin 'pbrisbin/vim-syntax-shakespeare'
+Plugin 'pearofducks/ansible-vim'
 Plugin 'saltstack/salt-vim'
-Plugin 'sprsquish/thrift.vim'
+Plugin 'solarnz/thrift.vim'
 Plugin 'tshirtman/vim-cython'
 Plugin 'vim-scripts/nginx.vim'
 
@@ -73,6 +74,10 @@ Plugin 'eagletmt/ghcmod-vim'
 Plugin 'eagletmt/neco-ghc'
 Plugin 'mpickering/hlint-refactor-vim'
 Plugin 'neovimhaskell/haskell-vim'
+
+" Rust
+Plugin 'rust-lang/rust.vim'
+Plugin 'racer-rust/vim-racer'
 
 " Build compat
 if has('nvim')
@@ -514,6 +519,9 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:haskellmode_completion_ghc = 0
     let g:ycm_semantic_triggers = {'haskell' : ['.']}
 
+" Neco-GHC
+    let g:necoghc_enable_detailed_browse = 1
+
 " Vim2hs
     "let g:haskell_conceal_wide         = 1
     let g:haskell_conceal              = 0
@@ -540,6 +548,13 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     autocmd FileType python set cc=80
     autocmd BufWritePre *.py :Autoformat
 
+" Haskell
+    autocmd FileType haskell setlocal formatprg=xargs\ pointfree
+    autocmd BufWritePre *.hs :Autoformat
+
+" Rust
+    autocmd BufWritePre *.rs :Autoformat
+
 " Less
     autocmd BufRead,BufNewFile *.less set filetype=less
 
@@ -551,10 +566,6 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 
 " Jinja
     autocmd BufRead,BufNewFile *.jinja set filetype=jinja
-
-" Haskell
-    autocmd FileType haskell setlocal formatprg=xargs\ pointfree
-    autocmd BufWritePre *.hs :Autoformat
 
 " Nginx
     autocmd BufRead,BufNewFile /etc/nginx/* set filetype=nginx
