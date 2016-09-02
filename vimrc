@@ -19,26 +19,24 @@ Plugin 'gmarik/Vundle.vim'
 
 " Enable plugins
 Plugin 'Chiel92/vim-autoformat'
-Plugin 'Konfekt/FastFold'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'Townk/vim-autoclose'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'airblade/vim-rooter'
 Plugin 'ervandew/supertab'
 Plugin 'godlygeek/tabular'
-Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-indent'
+Plugin 'kana/vim-textobj-user'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'mattn/emmet-vim'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'plasticboy/vim-markdown'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -50,10 +48,12 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'zenorocha/dracula-theme'
 
 " Syntaxes
+Plugin 'Konfekt/FastFold'
 Plugin 'cstrahan/vim-capnp'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'groenewege/vim-less'
 Plugin 'leafgarland/typescript-vim'
+Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'othree/html5.vim'
 Plugin 'pbrisbin/vim-syntax-shakespeare'
 Plugin 'pearofducks/ansible-vim'
@@ -99,7 +99,6 @@ call vundle#end()
 syntax on                      " syntax highlighting
 set fencs=utf-8,gb2312,gbk     " Sets the default encoding
 filetype plugin indent on      " Automatically detect file types.
-set autochdir                  " always switch to the current file directory.
 set clipboard=unnamed          " use system clipboard
 
 set nospell                    " spell checking off
@@ -472,12 +471,12 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:syntastic_haskell_hdevtools_args = "-g -Wall -g -fno-warn-unused-do-bind"
 
 " TextObj
-    augroup textobj_quote
-        autocmd!
-        autocmd FileType markdown call textobj#quote#init()
-        autocmd FileType textile call textobj#quote#init()
-        autocmd FileType text call textobj#quote#init({'educate': 0})
-    augroup END
+    " augroup textobj_quote
+    "     autocmd!
+    "     autocmd FileType markdown call textobj#quote#init()
+    "     autocmd FileType textile call textobj#quote#init()
+    "     autocmd FileType text call textobj#quote#init({'educate': 0})
+    " augroup END
 
 " Neocomplete
     let g:acp_enableAtStartup = 0
@@ -534,6 +533,10 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     autocmd FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
     autocmd FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
     autocmd FileType haskell nnoremap <buffer> <silent> <F3> :HdevtoolsInfo<CR>
+
+ " Rooter
+    let g:rooter_change_directory_for_non_project_files = 'current'
+    let g:rooter_patterns = ['.git/', 'stack.yaml']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Languages
