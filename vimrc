@@ -51,6 +51,7 @@ Plugin 'zenorocha/dracula-theme'
 Plugin 'Konfekt/FastFold'
 Plugin 'cstrahan/vim-capnp'
 Plugin 'derekwyatt/vim-scala'
+Plugin 'elzr/vim-json'
 Plugin 'groenewege/vim-less'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'nathanaelkane/vim-indent-guides'
@@ -376,7 +377,7 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 
     "let NERDTreeShowBookmarks=1
     let NERDTreeChDirMode=2
-    let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '\.DS_Store', '__pycache__', '\.egg-info$']
+    let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '\.DS_Store', '__pycache__', '\.egg-info$', '\.lock']
     let NERDTreeShowHidden=1
 
 " UltiSnips
@@ -467,16 +468,8 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:syntastic_check_on_open=1
     let g:syntastic_auto_jump=1
 
-    let g:syntastic_haskell_checkers = ["hlint"]
-    let g:syntastic_haskell_hdevtools_args = "-g -Wall -g -fno-warn-unused-do-bind"
-
-" TextObj
-    " augroup textobj_quote
-    "     autocmd!
-    "     autocmd FileType markdown call textobj#quote#init()
-    "     autocmd FileType textile call textobj#quote#init()
-    "     autocmd FileType text call textobj#quote#init({'educate': 0})
-    " augroup END
+    let g:syntastic_haskell_checkers = ["hdevtools", "hlint"]
+    let g:syntastic_haskell_hdevtools_args = '-g-Wall'
 
 " Neocomplete
     let g:acp_enableAtStartup = 0
@@ -528,8 +521,6 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let g:haskell_conceal_enumerations = 0
 
 " HDevTools
-    let g:syntastic_haskell_hdevtools_args = '-g-Wall'
-
     autocmd FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
     autocmd FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
     autocmd FileType haskell nnoremap <buffer> <silent> <F3> :HdevtoolsInfo<CR>
@@ -557,6 +548,7 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 
 " Rust
     autocmd BufWritePre *.rs :Autoformat
+    let $RUST_SRC_PATH="/usr/local/src/rust/src/"
 
 " Less
     autocmd BufRead,BufNewFile *.less set filetype=less
