@@ -43,9 +43,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/gitignore'
 
 " Colorthemes
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'flazz/vim-colorschemes'
-Plugin 'zenorocha/dracula-theme'
 
 " Syntaxes
 Plugin 'Konfekt/FastFold'
@@ -134,12 +132,11 @@ if has('gui_running')
     set guioptions-=L          " remove the left scrollbar
     set guioptions-=r          " remove the right scrollbar
 else
-    "color molokai
     color Tomorrow-Night
-    let g:solarized_termcolors=256
-    let g:solarized_termtrans=1
+    " let g:solarized_termcolors=256
+    " let g:solarized_termtrans=1
     " set term=builtin_xterm     " Make terminal stuff works
-    set t_Co=256
+    " set t_Co=256
 endif
 
 set tabpagemax=15              " only show 15 tabs
@@ -548,6 +545,7 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 
 " Rust
     autocmd BufWritePre *.rs :Autoformat
+    let g:racer_cmd = "racer"
     let $RUST_SRC_PATH="/usr/local/src/rust/src/"
 
 " Less
