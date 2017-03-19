@@ -358,6 +358,7 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
     let b:match_ignorecase = 1
 
 " Autoformat
+    autocmd BufWritePre * :Autoformat
     let g:autoformat_autoindent = 0
     let g:autoformat_retab = 0
     let g:autoformat_remove_trailing_spaces = 1
@@ -529,6 +530,7 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Languages
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Indent Fixes
     autocmd FileType css,less,html,haskell,jinja,javascript,php,puppet,yaml set shiftwidth=2
     autocmd FileType css,less,html,haskell,jinja,javascript,php,puppet,yaml set tabstop=2
@@ -537,14 +539,14 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>") " Return to normal mode on FocustLo
 " Python
     " Highlight 80 column
     autocmd FileType python set cc=80
-    autocmd BufWritePre *.py :Autoformat
+    " autocmd BufWritePre *.py :Autoformat
 
 " Haskell
     autocmd FileType haskell setlocal formatprg=xargs\ pointfree
-    autocmd BufWritePre *.hs :Autoformat
+    " autocmd BufWritePre *.hs :Autoformat
 
 " Rust
-    autocmd BufWritePre *.rs :Autoformat
+    " autocmd BufWritePre *.rs :Autoformat
     let g:racer_cmd = "racer"
     let $RUST_SRC_PATH="/usr/local/src/rust/src/"
 
